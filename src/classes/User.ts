@@ -23,7 +23,7 @@ export class User {
 		return this.balance;
 	}
 
-	public saveUser(): { insertedId: string } | {message: string} {
+	public saveUser(): { insertedId: string } | { message: string } {
 		try {
 			const users = getFromLocalStorage<User>("users");
 
@@ -40,9 +40,9 @@ export class User {
 			return { insertedId: this.id };
 		} catch (error) {
 			if (error instanceof Error) {
-				return error;
-            }
-            return {message: "An Unknown Error Occurred!"}; 
+				return { message: error.message };
+			}
+			return { message: "An Unknown Error Occurred!" };
 		}
 	}
 }

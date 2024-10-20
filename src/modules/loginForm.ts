@@ -1,8 +1,12 @@
 import $ from "jquery";
 import { notify } from "../utilities/notify";
-import { hashPassword } from "../utilities/passwordUtils";
+import { matchPassword } from "../utilities/passwordUtils";
+import { findUser } from "../utilities/userMethods";
+import { NotyfNotification } from "notyf";
 
-export const handleLogin = async (e: JQuery.ClickEvent) => {
+export const handleLogin = async (
+	e: JQuery.ClickEvent
+): Promise<NotyfNotification> => {
 	e.preventDefault();
 
 	const mobile = $("#mobile").val() as string;
@@ -28,10 +32,23 @@ export const handleLogin = async (e: JQuery.ClickEvent) => {
 		return notify.error("Password Must Be 4 Digits!");
 	}
 
-	const hp = await hashPassword(password);
-	console.log(hp);
-	notify.success(mobile);
+	const userResult = findUser(mobile);
 
-	$("#mobile").val("");
-	$("#password").val("");
+	if ("message" in userResult) {
+		return notify.error(userResult.message);
+	}
+
+	const user = userResult;
+
+	const isMatched = await matchPassword(password, user.password);
+
+	if (isMatched) {
+		// Clear the input field
+		$("#mobile").val("");
+		$("#password").val("");
+
+		return notify.success("Successfully Logged In!");
+    }
+    
+	return notify.error("Wrong Password!");
 };

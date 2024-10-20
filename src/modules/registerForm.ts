@@ -2,8 +2,11 @@ import $ from "jquery";
 import { notify } from "../utilities/notify";
 import { hashPassword } from "../utilities/passwordUtils";
 import { User } from "../classes/User";
+import { NotyfNotification } from "notyf";
 
-export const handleRegister = async (e: JQuery.ClickEvent) => {
+export const handleRegister = async (
+	e: JQuery.ClickEvent
+): Promise<NotyfNotification> => {
 	e.preventDefault();
 
 	const name = $("#name").val() as string;
@@ -42,14 +45,16 @@ export const handleRegister = async (e: JQuery.ClickEvent) => {
 		const result = user.saveUser();
 
 		if ("insertedId" in result) {
-			notify.success("Successfully Registered!");
-
-			// Clear the input field
+			// Clear the input fields
 			$("#name").val("");
 			$("#mobile-reg").val("");
 			$("#password-reg").val("");
+
+			return notify.success("Successfully Registered!");
 		} else {
-			notify.error(result.message);
+			return notify.error(result.message);
 		}
-	}
+    }
+    
+	return notify.error("Something Went Wrong!");
 };
