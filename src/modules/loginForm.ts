@@ -12,6 +12,10 @@ export const handleLogin = async (e: JQuery.ClickEvent) => {
 		return notify.error("Mobile Number is Missing!");
 	}
 
+	if (mobile.length !== 11) {
+		return notify.error("Number Must Be 11 Digits!");
+	}
+
 	if (!password) {
 		return notify.error("Your Password is Missing!");
 	}

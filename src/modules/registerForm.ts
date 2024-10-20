@@ -18,6 +18,10 @@ export const handleRegister = async (e: JQuery.ClickEvent) => {
 		return notify.error("Mobile Number is Missing!");
 	}
 
+	if (mobile.length !== 11) {
+		return notify.error("Number Must Be 11 Digits!");
+	}
+
 	if (!password) {
 		return notify.error("Your Password is Missing!");
 	}
@@ -30,8 +34,8 @@ export const handleRegister = async (e: JQuery.ClickEvent) => {
 		return notify.error("Password Must Be 4 Digits!");
 	}
 
-    const hashedPassword = await hashPassword(password);
-    
+	const hashedPassword = await hashPassword(password);
+
 	if (hashedPassword) {
 		const user = new User(name, mobile, hashedPassword);
 
