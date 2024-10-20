@@ -23,26 +23,17 @@ export class User {
 		return this.balance;
 	}
 
-	public saveUser(): { insertedId: string } | { message: string } {
-		try {
-			const users = getFromLocalStorage<User>("users");
+	public saveUser(): { insertedId: string } {
+		const users = getFromLocalStorage<User>("users");
 
-			const userExists = users.find(
-				(user) => user.mobile === this.mobile
-			);
+		const userExists = users.find((user) => user.mobile === this.mobile);
 
-			if (userExists) {
-				throw new Error(`${this.mobile} is Registered!`);
-			}
-
-			saveToLocalStorage<User>("users", this);
-
-			return { insertedId: this.id };
-		} catch (error) {
-			if (error instanceof Error) {
-				return { message: error.message };
-			}
-			return { message: "An Unknown Error Occurred!" };
+		if (userExists) {
+			throw new Error(`${this.mobile} is Registered!`);
 		}
+
+		saveToLocalStorage<User>("users", this);
+
+		return { insertedId: this.id };
 	}
 }

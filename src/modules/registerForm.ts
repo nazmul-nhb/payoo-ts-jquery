@@ -42,19 +42,25 @@ export const handleRegister = async (
 	if (hashedPassword) {
 		const user = new User(name, mobile, hashedPassword);
 
-		const result = user.saveUser();
+		try {
+			const result = user.saveUser();
 
-		if ("insertedId" in result) {
-			// Clear the input fields
-			$("#name").val("");
-			$("#mobile-reg").val("");
-			$("#password-reg").val("");
+			if (result.insertedId) {
+				// Clear the input fields
+				$("#name").val("");
+				$("#mobile-reg").val("");
+				$("#password-reg").val("");
 
-			return notify.success("Successfully Registered!");
-		} else {
-			return notify.error(result.message);
+				return notify.success("Successfully Registered!");
+			}
+		} catch (error) {
+			if (error instanceof Error) {
+				return notify.error(error.message);
+			}
+
+			return notify.error("An Unknown Error Occurred!");
 		}
-    }
-    
+	}
+
 	return notify.error("Something Went Wrong!");
 };

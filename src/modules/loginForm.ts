@@ -32,23 +32,25 @@ export const handleLogin = async (
 		return notify.error("Password Must Be 4 Digits!");
 	}
 
-	const userResult = findUser(mobile);
+	try {
+		const user = findUser(mobile);
 
-	if ("message" in userResult) {
-		return notify.error(userResult.message);
+		const isMatched = await matchPassword(password, user.password);
+
+		if (isMatched) {
+			// Clear the input field
+			$("#mobile").val("");
+			$("#password").val("");
+
+			return notify.success("Successfully Logged In!");
+		}
+
+		return notify.error("Wrong Password!");
+	} catch (error) {
+		if (error instanceof Error) {
+			return notify.error(error.message);
+		}
+
+		return notify.error("An Unknown Error Occurred!");
 	}
-
-	const user = userResult;
-
-	const isMatched = await matchPassword(password, user.password);
-
-	if (isMatched) {
-		// Clear the input field
-		$("#mobile").val("");
-		$("#password").val("");
-
-		return notify.success("Successfully Logged In!");
-    }
-    
-	return notify.error("Wrong Password!");
 };
