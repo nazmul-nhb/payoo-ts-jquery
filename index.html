@@ -10,44 +10,86 @@
 		id="main"
 		class="w-full max-w-[540px] mx-auto h-screen scrollbar-hide overflow-y-hidden border border-payoo/70"
 	>
-		<!-- Header -->
-		<header
-			class="h-20 bg-payoo/15 shadow-md shadow-payoo flex items-center justify-between sticky top-0 backdrop-filter backdrop-blur-sm bg-opacity-80 z-40 px-6 py-4"
-		>
-			<div class="flex items-center gap-2">
-				<figure>
-					<img src="./src/assets/images/status.svg" alt="Status" />
-				</figure>
-				<div>
-					<h2 class="text-lg font-bold">
-						$<span id="balance">50000</span>
-					</h2>
-					<h5 class="text-gray-600">Available Balance</h5>
+		<section id="registered" class="hidden">
+			<!-- Header -->
+			<header
+				class="h-20 bg-payoo/15 shadow-md shadow-payoo flex items-center justify-between sticky top-0 backdrop-filter backdrop-blur-sm bg-opacity-80 z-40 px-6 py-4"
+			>
+				<div class="flex items-center gap-2">
+					<figure>
+						<img
+							src="./src/assets/images/status.svg"
+							alt="Status"
+						/>
+					</figure>
+					<div>
+						<h2 class="text-lg font-bold">
+							$<span id="balance">50000</span>
+						</h2>
+						<h5 class="text-gray-600">Available Balance</h5>
+					</div>
 				</div>
-			</div>
-			<h3>
-				<button
-					class="text-lg font-bold flex items-center gap-1 hover:scale-105 hover:text-payoo transition-all duration-500"
-					id="log-out"
+				<h3>
+					<button
+						class="text-lg font-bold flex items-center gap-1 hover:scale-105 hover:text-payoo transition-all duration-500"
+						id="log-out"
+					>
+						<i class="fa-solid fa-right-from-bracket"></i>Log Out
+					</button>
+				</h3>
+			</header>
+			<!-- Main Contents -->
+			<main
+				class="h-[calc(100vh-144px)] text-center overflow-y-auto payoo-scrollbar p-6"
+			>
+				<section id="" class=""></section>
+			</main>
+			<!-- Footer -->
+			<footer
+				class="bg-slate-800 text-white h-16 flex items-center justify-center gap-1"
+			>
+				&copy; <span id="year"></span> Payoo
+			</footer>
+		</section>
+		<section id="login" class="h-screen flex items-center justify-center">
+			<div class="flex flex-col items-center gap-8">
+				<figure
+					class="p-4 pb-0 border-t-4 border-t-payoo rounded-full aspect-square"
 				>
-					<i class="fa-solid fa-right-from-bracket"></i>Log Out
-				</button>
-			</h3>
-		</header>
-		<!-- Main Contents -->
-		<main
-			class="h-[calc(100vh-144px)] text-center overflow-y-auto payoo-scrollbar p-6"
-		>
-			<section>
-				
-			</section>
-		</main>
-		<!-- Footer -->
-		<footer
-			class="bg-slate-800 text-white h-16 flex items-center justify-center gap-1"
-		>
-			&copy; <span id="year"></span> Payoo
-		</footer>
+					<img src="./src/assets/images/status.svg" alt="Logo/Icon" />
+				</figure>
+				<form class="flex flex-col gap-2">
+					<label class="font-semibold" for="mobile"
+						>Mobile Number</label
+					>
+					<input
+						class="outline-none border-payoo/60 border px-4 py-1.5"
+						id="mobile"
+						name="mobile"
+						type="tell"
+						placeholder="Enter Your Number"
+					/>
+
+					<label class="font-semibold" for="password"
+						>4 Digit Pin</label
+					>
+					<input
+						class="outline-none border-payoo/60 border px-4 py-1.5"
+						id="password"
+						name="password"
+						type="password"
+						placeholder="Enter Your Password"
+					/>
+					<button
+						class="text-lg font-bold text-white bg-payoo border-payoo border px-6 py-2 rounded-full hover:text-payoo hover:bg-transparent transition-all duration-500 cursor-pointer"
+						id="login-btn"
+						type="submit"
+					>
+						Login
+					</button>
+				</form>
+			</div>
+		</section>
 		<script type="module" src="/src/main.ts"></script>
 	</body>
 </html>
