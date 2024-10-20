@@ -1,9 +1,15 @@
-export const getItemFromLocalStorage = (key: string): [] => {
+export const getFromLocalStorage = <Value>(key: string): Value[] => {
 	const item = localStorage.getItem(key);
-	// if (item) {
-	// 	return JSON.parse(item);
-	// }
-    // return [];
-    
-    return JSON.parse(item || "[]");
+
+	return JSON.parse(item || "[]") as Value[];
+};
+
+export const saveToLocalStorage = <Value>(key: string, value: Value): void => {
+	const item = getFromLocalStorage<Value>(key);
+
+	item.push(value);
+
+	const updatedItem = JSON.stringify(item);
+
+	localStorage.setItem(key, updatedItem);
 };
