@@ -1,11 +1,10 @@
 import $ from "jquery";
 import { notify } from "../utilities/notify";
 import { hashPassword } from "../utilities/passwordUtils";
+import { User } from "../classes/User";
 
 export const handleRegister = async (e: JQuery.ClickEvent) => {
 	e.preventDefault();
-
-	console.log(e);
 
 	const name = $("#name").val() as string;
 	const mobile = $("#mobile-reg").val() as string;
@@ -31,12 +30,22 @@ export const handleRegister = async (e: JQuery.ClickEvent) => {
 		return notify.error("Password Must Be 4 Digits!");
 	}
 
-	const hp = await hashPassword(password);
-	console.log(hp);
-	notify.success(mobile);
+    const hashedPassword = await hashPassword(password);
+    
+	if (hashedPassword) {
+		const user = new User(name, mobile, hashedPassword);
 
-	// Clear the input field
-	$("#name").val("");
-	$("#mobile-reg").val("");
-	$("#password-reg").val("");
+		const result = user.saveUser();
+
+		if ("insertedId" in result) {
+			notify.success("Successfully Registered!");
+
+			// Clear the input field
+			$("#name").val("");
+			$("#mobile-reg").val("");
+			$("#password-reg").val("");
+		} else {
+			notify.error(result.message);
+		}
+	}
 };
