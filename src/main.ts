@@ -1,8 +1,9 @@
 import "./style.css";
 import $ from "jquery";
+import { notify } from "./utilities/notify";
 
 $(() => {
 	$("#jQb").on("click", () => {
-		alert("Button Clicked!");
+		notify.error("Button Clicked!");
 	});
 });
