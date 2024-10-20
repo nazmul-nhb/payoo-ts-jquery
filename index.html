@@ -19,7 +19,7 @@
 					<figure>
 						<img
 							src="./src/assets/images/status.svg"
-							alt="Status"
+							alt="Logo/Icon"
 						/>
 					</figure>
 					<div>
@@ -58,7 +58,23 @@
 				>
 					<img src="./src/assets/images/status.svg" alt="Logo/Icon" />
 				</figure>
-				<form class="flex flex-col gap-2">
+				<!-- Login & Register Tabs -->
+				<div class="space-x-5">
+					<button
+						id="login-tab"
+						class="active-tab-btn px-6 py-2 rounded-lg transition-all duration-500 font-semibold"
+					>
+						Login
+					</button>
+					<button
+						id="register-tab"
+						class="inactive-tab-btn px-6 py-2 rounded-lg transition-all duration-500 font-semibold"
+					>
+						Register
+					</button>
+				</div>
+				<!-- Login -->
+				<form id="login-form" class="flex flex-col gap-2">
 					<label class="font-semibold" for="mobile"
 						>Mobile Number</label
 					>
@@ -86,6 +102,46 @@
 						type="submit"
 					>
 						Login
+					</button>
+				</form>
+				<!-- Register -->
+				<form id="register-form" class="hidden flex-col gap-2">
+					<label class="font-semibold" for="mobile">Name</label>
+					<input
+						class="outline-none border-payoo/60 border px-4 py-1.5"
+						id="name"
+						name="name"
+						type="text"
+						placeholder="Enter Your Number"
+					/>
+
+					<label class="font-semibold" for="mobile-reg"
+						>Mobile Number</label
+					>
+					<input
+						class="outline-none border-payoo/60 border px-4 py-1.5"
+						id="mobile-reg"
+						name="mobile-reg"
+						type="tell"
+						placeholder="Enter Your Number"
+					/>
+
+					<label class="font-semibold" for="password-reg"
+						>4 Digit Pin</label
+					>
+					<input
+						class="outline-none border-payoo/60 border px-4 py-1.5"
+						id="password-reg"
+						name="password-reg"
+						type="password"
+						placeholder="Enter Your Password"
+					/>
+					<button
+						class="text-lg font-bold text-white bg-payoo border-payoo border px-6 py-2 rounded-full hover:text-payoo hover:bg-transparent transition-all duration-500 cursor-pointer"
+						id="register-btn"
+						type="submit"
+					>
+						Register
 					</button>
 				</form>
 			</div>

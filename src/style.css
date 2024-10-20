@@ -65,3 +65,26 @@ body::-webkit-scrollbar-thumb,
 	/* For Chrome, Safari, and Opera */
 	display: none;
 }
+
+/* Styles for active and inactive buttons */
+/* Active Button */
+.active-tab-btn {
+	background-color: #0874f2;
+	box-shadow: 0 3px 5px #0874f259, 0 -3px 5px #0874f243;
+	color: white;
+}
+
+.active-tab-btn:hover {
+	background-color: #0875f298;
+}
+
+/* -------------------------------------- */
+/* Inactive Button */
+.inactive-tab-btn {
+	background-color: transparent;
+	box-shadow: 0 3px 5px #00000033, 0 -3px 5px #0000001a;
+}
+
+.inactive-tab-btn:hover {
+	background-color: #bebec489;
+}

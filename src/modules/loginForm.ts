@@ -13,7 +13,7 @@ export const handleLogin = async (e: JQuery.ClickEvent) => {
 	}
 
 	if (!password) {
-		return notify.error("Password is Missing!");
+		return notify.error("Your Password is Missing!");
 	}
 
 	if (!/^\d+$/.test(password)) {
@@ -27,4 +27,7 @@ export const handleLogin = async (e: JQuery.ClickEvent) => {
 	const hp = await hashPassword(password);
 	console.log(hp);
 	notify.success(mobile);
+
+	$("#mobile").val("");
+	$("#password").val("");
 };
