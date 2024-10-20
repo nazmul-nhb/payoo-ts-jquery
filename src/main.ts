@@ -10,6 +10,8 @@ $(() => {
 	// Logout button in the header section
 	$("#log-out").on("click", () => {
 		notify.error("Clicked Log Out!");
+		$("#unregistered").show();
+		$("#registered").hide();
 	});
 
 	// Login/Register Tabs Toggler

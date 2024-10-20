@@ -10,7 +10,10 @@
 		id="main"
 		class="w-full max-w-[540px] mx-auto h-screen scrollbar-hide overflow-y-hidden border border-payoo/70"
 	>
-		<section id="registered" class="hidden">
+		<section
+			id="registered"
+			style="display: none; height: 100vh; overflow-y: hidden"
+		>
 			<!-- Header -->
 			<header
 				class="h-20 bg-payoo/15 shadow-md shadow-payoo flex items-center justify-between sticky top-0 backdrop-filter backdrop-blur-sm bg-opacity-80 z-40 px-6 py-4"
@@ -51,7 +54,11 @@
 				&copy; <span id="year"></span> Payoo
 			</footer>
 		</section>
-		<section id="login" class="h-screen flex items-center justify-center">
+		<section
+			id="unregistered"
+			class="h-screen items-center justify-center"
+			style="display: flex"
+		>
 			<div class="flex flex-col items-center gap-8">
 				<figure
 					class="p-4 pb-0 border-t-4 border-t-payoo rounded-full aspect-square"

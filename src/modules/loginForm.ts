@@ -42,6 +42,9 @@ export const handleLogin = async (
 			$("#mobile").val("");
 			$("#password").val("");
 
+			$("#unregistered").hide();
+			$("#registered").show();
+
 			return notify.success("Successfully Logged In!");
 		}
 
