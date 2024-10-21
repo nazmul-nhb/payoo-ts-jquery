@@ -6,6 +6,8 @@ export const showMenus = (): void => {
 
 	menuContainer.html("");
 
+	let activeMenuId: string | null = null;
+
 	menus.forEach((menu) => {
 		const { id, title, image } = menu;
 
@@ -14,15 +16,41 @@ export const showMenus = (): void => {
 		menuDiv.html(
 			/*html*/
 			`
-            <figure id="menu-${id}">
-                <image src="${image}" alt="${title}"/>
-                <h3>
-                    ${title}
-                </h3>
+            <figure
+                id="menu-${id}"
+                class="flex flex-col items-center gap-2 cursor-pointer border border-payoo/75 px-4 py-2 rounded-lg font-semibold hover:bg-payoo/20 transition-all duration-500 bg-payoo/5 text-payoo"
+            >
+                    <img
+                        class="flex-grow"
+                        src="${image}"
+                        alt="${title}"
+                    />
+                    <h3 class="flex-grow">
+                        ${title}
+                    </h3>
             </figure>
             `
 		);
 
 		menuContainer.append(menuDiv);
+
+		// Handle click event for the current menu item
+		$(`#menu-${id}`).on("click", () => {
+			// If there's an active menu, remove the active classes and add the inactive classes
+			if (activeMenuId !== null) {
+				$(`#menu-${activeMenuId}`).toggleClass(
+					"bg-payoo/90 text-white hover:text-payoo bg-payoo/5 text-payoo"
+				);
+			}
+
+			// Set the clicked menu as active
+			activeMenuId = id;
+
+			// Toggle the classes for the clicked menu item
+			$(`#menu-${id}`).toggleClass(
+				"bg-payoo/90 text-white hover:text-payoo bg-payoo/5 text-payoo"
+			);
+		});
+
 	});
 };
