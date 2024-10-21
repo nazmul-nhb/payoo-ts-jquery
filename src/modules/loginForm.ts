@@ -1,8 +1,9 @@
 import $ from "jquery";
 import { notify } from "../utilities/notify";
 import { matchPassword } from "../utilities/passwordUtils";
-import { findUser } from "../utilities/userMethods";
+import { findUser, setCurrentUser } from "../utilities/userMethods";
 import { NotyfNotification } from "notyf";
+import { showMainScreen } from "./toggleScreens";
 
 export const handleLogin = async (
 	e: JQuery.ClickEvent
@@ -42,9 +43,11 @@ export const handleLogin = async (
 			$("#mobile").val("");
 			$("#password").val("");
 
+			// Set logged in user as current user and save in localStorage
+			setCurrentUser(user.mobile);
+
 			// Hide login/register screen & Show main screen
-			$("#unregistered").hide();
-			$("#registered").show();
+			showMainScreen();
 
 			return notify.success("Successfully Logged In!");
 		}

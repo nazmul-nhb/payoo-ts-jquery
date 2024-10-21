@@ -1,17 +1,24 @@
 import "./style.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import $ from "jquery";
-import { notify } from "./utilities/notify";
 import { handleLogin } from "./modules/loginForm";
 import { toggleButtonState, toggleTabs } from "./modules/tabsToggler";
 import { handleRegister } from "./modules/registerForm";
+import { getCurrentUser, logOut } from "./utilities/userMethods";
+import { showLoginScreen, showMainScreen } from "./modules/toggleScreens";
 
 $(() => {
+	// Load current user if already logged in
+	const user = getCurrentUser();
+
+	if (user) {
+		showMainScreen();
+	}
+
 	// Logout button in the header section
 	$("#log-out").on("click", () => {
-		notify.error("Clicked Log Out!");
-		$("#unregistered").show();
-		$("#registered").hide();
+		logOut();
+		showLoginScreen();
 	});
 
 	// Show Login Form (Tab)
