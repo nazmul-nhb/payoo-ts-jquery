@@ -9,3 +9,9 @@ export interface IUser extends ICredentials {
 	balance: number;
 	creationTime: string;
 }
+
+export interface IMenu {
+	id: string;
+	title: string;
+	image: string;
+}

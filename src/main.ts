@@ -6,6 +6,7 @@ import { toggleButtonState, toggleTabs } from "./modules/tabsToggler";
 import { handleRegister } from "./modules/registerForm";
 import { getCurrentUser, logOut } from "./utilities/userMethods";
 import { showLoginScreen, showMainScreen } from "./modules/toggleScreens";
+import { showMenus } from "./modules/showMenus";
 
 $(() => {
 	// Load current user if already logged in
@@ -14,6 +15,8 @@ $(() => {
 	if (user) {
 		showMainScreen();
 	}
+
+	showMenus();
 
 	// Logout button in the header section
 	$("#log-out").on("click", () => {
