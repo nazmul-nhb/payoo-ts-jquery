@@ -90,9 +90,9 @@ export class User {
 				return { success: false, message: "Insufficient Balance!" };
 			}
 			this.balance -= amount;
+		} else {
+			this.balance += amount;
 		}
-
-		this.balance += amount;
 
 		// Update user in local storage
 		const updated = updateUser(this.mobile, { balance: this.balance });
