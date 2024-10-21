@@ -42,6 +42,7 @@ export const handleLogin = async (
 			$("#mobile").val("");
 			$("#password").val("");
 
+			// Hide login/register screen & Show main screen
 			$("#unregistered").hide();
 			$("#registered").show();
 

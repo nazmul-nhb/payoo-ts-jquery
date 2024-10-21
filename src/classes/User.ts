@@ -1,3 +1,4 @@
+import { IUser } from "../types/interfaces";
 import { generateID } from "@nazmul-nhb/id-generator";
 import {
 	getFromLocalStorage,
@@ -23,7 +24,7 @@ export class User {
 		return this.balance;
 	}
 
-	public saveUser(): { insertedId: string } {
+	public save(): { insertedId: string } {
 		const users = getFromLocalStorage<User>("users");
 
 		const userExists = users.find((user) => user.mobile === this.mobile);
@@ -35,5 +36,16 @@ export class User {
 		saveToLocalStorage<User>("users", this);
 
 		return { insertedId: this.id };
+	}
+
+	static hydrate(user: IUser): User {
+		return new User(
+			user.name,
+			user.mobile,
+			user.password,
+			user.balance,
+			user.id,
+			new Date(user.creationTime)
+		);
 	}
 }

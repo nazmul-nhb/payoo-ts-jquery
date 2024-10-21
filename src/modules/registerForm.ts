@@ -3,6 +3,7 @@ import { notify } from "../utilities/notify";
 import { hashPassword } from "../utilities/passwordUtils";
 import { User } from "../classes/User";
 import { NotyfNotification } from "notyf";
+import { toggleButtonState, toggleTabs } from "./tabsToggler";
 
 export const handleRegister = async (
 	e: JQuery.ClickEvent
@@ -43,13 +44,17 @@ export const handleRegister = async (
 		const user = new User(name, mobile, hashedPassword);
 
 		try {
-			const result = user.saveUser();
+			const result = user.save();
 
 			if (result.insertedId) {
 				// Clear the input fields
 				$("#name").val("");
 				$("#mobile-reg").val("");
 				$("#password-reg").val("");
+
+				// Show Login page
+				toggleTabs($("#login-form"), $("#register-form"));
+				toggleButtonState($("#login-tab"), $("#register-tab"));
 
 				return notify.success("Successfully Registered!");
 			}

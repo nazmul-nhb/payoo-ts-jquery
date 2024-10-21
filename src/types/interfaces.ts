@@ -7,5 +7,5 @@ export interface IUser extends ICredentials {
 	id: string;
 	name: string;
 	balance: number;
-	creationTime: Date;
+	creationTime: string;
 }
