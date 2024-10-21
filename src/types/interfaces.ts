@@ -1,4 +1,4 @@
-import type { TransactionType } from "./types";
+import type { Transactions } from "./types";
 
 export interface ICredentials {
 	mobile: string;
@@ -24,7 +24,7 @@ export interface ITransaction {
 	amount: number;
 	previousBalance: number;
 	currentBalance: number;
-	transactionType: TransactionType;
+	transactionType: Transactions;
 	transactionTime: string | Date;
 }
 

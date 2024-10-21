@@ -16,7 +16,7 @@ import {
 } from "../utilities/localStorage";
 import { updateUser } from "../utilities/userMethods";
 import { generateTransactionId } from "../utilities/helpers";
-import type { TransactionType } from "../types/types";
+import type { Transactions } from "../types/types";
 
 /**
  * Create an instance of User
@@ -78,14 +78,21 @@ export class User {
 	 * Handle different types of transactions
 	 */
 	private handleTransaction<Transaction>(
-		type: TransactionType,
+		type: Transactions,
 		amount: number,
 		extraDetails: Partial<Transaction>,
 		isAdding: boolean
 	): IUpdateResponse {
 		const previousBalance = this.balance;
-		// Update balance
-		this.balance += isAdding ? amount : -amount;
+
+		if (!isAdding) {
+			if (this.balance < amount) {
+				return { success: false, message: "Insufficient Balance!" };
+			}
+			this.balance -= amount;
+		}
+
+		this.balance += amount;
 
 		// Update user in local storage
 		const updated = updateUser(this.mobile, { balance: this.balance });
@@ -158,7 +165,7 @@ export class User {
 	 * Method to transfer money
 	 */
 	public transferMoney(details: ITransactionInput): IUpdateResponse {
-		const {  amount, participant } = details;
+		const { amount, participant } = details;
 		return this.handleTransaction<ITransfer>(
 			"transfer",
 			amount,

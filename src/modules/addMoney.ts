@@ -50,16 +50,24 @@ export const handleAddMoney = async (
 			const isMatched = await matchPIN(pin, user.pin);
 
 			if (isMatched) {
-				// Clear the input field
-				$("#bank-name").val("");
-				$("#bank-account").val("");
-				$("#add-amount").val("");
-				$("#add-pin").val("");
+				const result = user.addMoney({
+					amount,
+					bank,
+					participant: account,
+				});
 
-                user.addMoney({ amount, bank, participant: account });
-                showBalance(user.getBalance());
+				if (result.success) {
+					// Clear the input field
+					$("#bank-name").val("");
+					$("#bank-account").val("");
+					$("#add-amount").val("");
+					$("#add-pin").val("");
 
-				return notify.success(`$${amount} Added to Account!`);
+					showBalance(user.getBalance());
+
+					return notify.success(`$${amount} Added to Account!`);
+				}
+				return notify.error(result.message);
 			}
 		}
 
