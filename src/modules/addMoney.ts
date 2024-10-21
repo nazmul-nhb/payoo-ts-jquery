@@ -3,6 +3,7 @@ import { notify } from "../utilities/notify";
 import { matchPIN } from "../utilities/hashingUtils";
 import type { NotyfNotification } from "notyf";
 import { getCurrentUser } from "../utilities/userMethods";
+import { showBalance } from "./showBalance";
 
 export const handleAddMoney = async (
 	e: JQuery.ClickEvent
@@ -55,7 +56,8 @@ export const handleAddMoney = async (
 				$("#add-amount").val("");
 				$("#add-pin").val("");
 
-				user.addMoney({ amount, bank, participant: account });
+                user.addMoney({ amount, bank, participant: account });
+                showBalance(user.getBalance());
 
 				return notify.success(`$${amount} Added to Account!`);
 			}

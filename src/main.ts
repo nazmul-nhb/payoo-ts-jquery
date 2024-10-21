@@ -8,6 +8,7 @@ import { getCurrentUser, logOut } from "./utilities/userMethods";
 import { showLoginScreen, showMainScreen } from "./modules/toggleScreens";
 import { showMenus } from "./modules/showMenus";
 import { handleAddMoney } from "./modules/addMoney";
+import { showBalance } from "./modules/showBalance";
 // import { setIsLoading } from "./modules/showLoading";
 
 $(() => {
@@ -17,6 +18,7 @@ $(() => {
 
 	if (user) {
 		showMainScreen();
+		showBalance(user.getBalance())
 	} else {
 		showLoginScreen();
 	}
