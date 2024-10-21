@@ -4,11 +4,14 @@ import { matchPassword } from "../utilities/passwordUtils";
 import { findUser, setCurrentUser } from "../utilities/userMethods";
 import { NotyfNotification } from "notyf";
 import { showMainScreen } from "./toggleScreens";
+import { setIsLoading } from "./showLoading";
 
 export const handleLogin = async (
 	e: JQuery.ClickEvent
 ): Promise<NotyfNotification> => {
 	e.preventDefault();
+
+	setIsLoading(true);
 
 	const mobile = $("#mobile").val() as string;
 	const password = $("#password").val() as string;
@@ -59,5 +62,7 @@ export const handleLogin = async (
 		}
 
 		return notify.error("An Unknown Error Occurred!");
+	} finally {
+		setIsLoading(false);
 	}
 };

@@ -4,11 +4,14 @@ import { hashPassword } from "../utilities/passwordUtils";
 import { User } from "../classes/User";
 import { NotyfNotification } from "notyf";
 import { toggleButtonState, toggleTabs } from "./tabsToggler";
+import { setIsLoading } from "./showLoading";
 
 export const handleRegister = async (
 	e: JQuery.ClickEvent
 ): Promise<NotyfNotification> => {
 	e.preventDefault();
+
+	setIsLoading(true);
 
 	const name = $("#name").val() as string;
 	const mobile = $("#mobile-reg").val() as string;
@@ -64,6 +67,8 @@ export const handleRegister = async (
 			}
 
 			return notify.error("An Unknown Error Occurred!");
+		} finally {
+			setIsLoading(false);
 		}
 	}
 
