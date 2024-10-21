@@ -29,16 +29,24 @@ export interface ITransaction {
 }
 
 export interface IAddMoney extends ITransaction {
-	source: string;
+	source: {
+		bank: string;
+		account: string;
+	};
+}
+
+export interface ICashOut extends ITransaction {
+	agent: string;
 }
 
 export interface ITransactionInput {
 	amount: number;
+	bank?: string;
 	participant: string;
 	type: TransactionType;
 }
 
 export interface IUpdateResponse {
 	success: boolean;
-	message?: string;
+	message: string;
 }

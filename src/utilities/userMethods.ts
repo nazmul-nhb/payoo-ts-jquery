@@ -63,5 +63,5 @@ export const updateUser = (
 
 	localStorage.setItem("users", JSON.stringify(users));
 
-	return { success: true };
+	return { success: true, message: "Successfully Updated!" };
 };
