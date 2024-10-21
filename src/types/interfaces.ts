@@ -35,15 +35,29 @@ export interface IAddMoney extends ITransaction {
 	};
 }
 
+export interface IPayBill extends ITransaction {
+	source: {
+		institute: string;
+		account: string;
+	};
+}
+
 export interface ICashOut extends ITransaction {
 	agent: string;
 }
 
 export interface ITransactionInput {
 	amount: number;
-	bank?: string;
 	participant: string;
 	type: TransactionType;
+}
+
+export interface IPayBillInput extends ITransactionInput {
+	institute: string;
+}
+
+export interface IAddMoneyInput extends ITransactionInput {
+	bank: string;
 }
 
 export interface IUpdateResponse {

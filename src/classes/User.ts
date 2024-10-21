@@ -1,6 +1,9 @@
-import {
+import type {
 	IAddMoney,
+	IAddMoneyInput,
 	ICashOut,
+	IPayBill,
+	IPayBillInput,
 	ITransactionInput,
 	IUpdateResponse,
 	IUser,
@@ -12,7 +15,11 @@ import {
 } from "../utilities/localStorage";
 import { updateUser } from "../utilities/userMethods";
 import { generateTransactionId } from "../utilities/helpers";
+import type { TransactionType } from "../types/types";
 
+/**
+ * Create an instance of User
+ */
 export class User {
 	constructor(
 		public name: string,
@@ -28,6 +35,9 @@ export class User {
 		public creationTime: Date = new Date()
 	) {}
 
+	/**
+	 * Save user to localStorage
+	 */
 	public save(): { insertedId: string } {
 		const users = getFromLocalStorage<User>("users");
 
@@ -42,6 +52,9 @@ export class User {
 		return { insertedId: this.id };
 	}
 
+	/**
+	 * Hydrate user from localStorage
+	 */
 	static hydrate(user: IUser): User {
 		return new User(
 			user.name,
@@ -53,68 +66,96 @@ export class User {
 		);
 	}
 
+	/**
+	 * Get user's current balance
+	 */
 	public getBalance(): number {
 		return this.balance;
 	}
 
-	public addMoney = (details: ITransactionInput): IUpdateResponse => {
+	/**
+	 * Handle different types of transactions
+	 */
+	private handleTransaction<Transaction>(
+		type: TransactionType,
+		amount: number,
+		extraDetails: Partial<Transaction>,
+		isAdding: boolean
+	): IUpdateResponse {
+		const previousBalance = this.balance;
+		// Update balance
+		this.balance += isAdding ? amount : -amount;
+
+		// Update user in local storage
+		const updated = updateUser(this.mobile, { balance: this.balance });
+
+		if (updated.success) {
+			// Generate common transaction details
+			const transactionDetails = {
+				transactionId: generateTransactionId(type),
+				userNumber: this.mobile,
+				amount,
+				previousBalance,
+				currentBalance: this.balance,
+				transactionType: type,
+				transactionTime: new Date(),
+				...extraDetails,
+			};
+
+			// Save transaction to localStorage
+			saveToLocalStorage<Transaction>(
+				"transactions",
+				transactionDetails as Transaction
+			);
+
+			return { success: true, message: "Transaction Successful!" };
+		}
+
+		return { success: false, message: "Something Went Wrong!" };
+	}
+
+	/**
+	 * Method to add money
+	 */
+	public addMoney(details: IAddMoneyInput): IUpdateResponse {
 		const { type, amount, bank, participant } = details;
+		return this.handleTransaction<IAddMoney>(
+			type,
+			amount,
+			{
+				source: { bank, account: participant },
+			},
+			true
+		);
+	}
 
-		const previousBalance = this.balance;
-
-		this.balance += amount;
-
-		const updated = updateUser(this.mobile, { balance: this.balance });
-
-		if (updated.success) {
-			const transactionDetails: IAddMoney = {
-				transactionId: generateTransactionId(type),
-				userNumber: this.mobile,
-				amount,
-				previousBalance,
-				currentBalance: this.balance,
-				source: {
-					bank: bank!,
-					account: participant,
-				},
-				transactionType: type,
-				transactionTime: new Date(),
-			};
-
-			saveToLocalStorage<IAddMoney>("transactions", transactionDetails);
-
-			return { success: true, message: "Transaction Successful!" };
-		}
-
-		return { success: false, message: "Something Went Wrong!" };
-	};
-
-	public cashOut = (details: ITransactionInput): IUpdateResponse => {
+	/**
+	 * Method to cash out money
+	 */
+	public cashOut(details: ITransactionInput): IUpdateResponse {
 		const { type, amount, participant } = details;
-
-		const previousBalance = this.balance;
-
-		this.balance -= amount;
-
-		const updated = updateUser(this.mobile, { balance: this.balance });
-
-		if (updated.success) {
-			const transactionDetails: ICashOut = {
-				transactionId: generateTransactionId(type),
-				userNumber: this.mobile,
-				amount,
-				previousBalance,
-				currentBalance: this.balance,
+		return this.handleTransaction<ICashOut>(
+			type,
+			amount,
+			{
 				agent: participant,
-				transactionType: type,
-				transactionTime: new Date(),
-			};
+			},
+			false
+		);
+	}
 
-			saveToLocalStorage<ICashOut>("transactions", transactionDetails);
-
-			return { success: true, message: "Transaction Successful!" };
-		}
-
-		return { success: false, message: "Something Went Wrong!" };
-	};
+	/**
+	 * Method to pay bill
+	 */
+	public payBill(details: IPayBillInput): IUpdateResponse {
+		const { type, institute, amount, participant } = details;
+		return this.handleTransaction<IPayBill>(
+			type,
+			amount,
+			{
+				source: { institute, account: participant },
+			},
+			false
+		);
+	}
 }
