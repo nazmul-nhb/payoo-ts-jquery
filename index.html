@@ -10,6 +10,7 @@
 		id="main"
 		class="w-full max-w-[540px] mx-auto h-screen scrollbar-hide overflow-y-hidden border border-payoo/70"
 	>
+		<!-- Main Screen -->
 		<section
 			id="registered"
 			style="display: none; height: 100vh; overflow-y: hidden"
@@ -46,9 +47,7 @@
 			<main
 				class="h-[calc(100vh-144px)] text-center overflow-y-auto payoo-scrollbar p-6"
 			>
-				<section id="menus" class="grid grid-cols-3 gap-3">
-
-				</section>
+				<section id="menus" class="grid grid-cols-3 gap-3"></section>
 			</main>
 			<!-- Footer -->
 			<footer
@@ -57,6 +56,12 @@
 				&copy; <span id="year"></span> Payoo
 			</footer>
 		</section>
+
+		<!-- Loading Spinner -->
+		<div
+			id="loading-spinner"
+			class="hidden w-16 h-16 rounded-full border-8 border-payoo/25 border-t-payoo my-6 mx-auto items-center justify-center animate-spin"
+		></div>
 
 		<!-- Login Screen -->
 		<section

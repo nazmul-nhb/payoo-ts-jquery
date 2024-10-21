@@ -51,6 +51,5 @@ export const showMenus = (): void => {
 				"bg-payoo/90 text-white hover:text-payoo bg-payoo/5 text-payoo"
 			);
 		});
-
 	});
 };
