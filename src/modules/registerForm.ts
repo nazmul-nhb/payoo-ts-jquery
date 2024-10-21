@@ -1,21 +1,18 @@
 import $ from "jquery";
 import { notify } from "../utilities/notify";
-import { hashPassword } from "../utilities/passwordUtils";
+import { hashPIN } from "../utilities/hashingUtils";
 import { User } from "../classes/User";
 import type { NotyfNotification } from "notyf";
 import { toggleButtonState, toggleTabs } from "./tabsToggler";
-import { setIsLoading } from "./showLoading";
 
 export const handleRegister = async (
 	e: JQuery.ClickEvent
 ): Promise<NotyfNotification> => {
 	e.preventDefault();
 
-	setIsLoading(true);
-
 	const name = $("#name").val() as string;
 	const mobile = $("#mobile-reg").val() as string;
-	const password = $("#password-reg").val() as string;
+	const pin = $("#reg-pin").val() as string;
 
 	if (!name) {
 		return notify.error("Your Name is Missing!");
@@ -29,22 +26,22 @@ export const handleRegister = async (
 		return notify.error("Number Must Be 11 Digits!");
 	}
 
-	if (!password) {
-		return notify.error("Your Password is Missing!");
+	if (!pin) {
+		return notify.error("Your PIN is Missing!");
 	}
 
-	if (!/^\d+$/.test(password)) {
+	if (!/^\d+$/.test(pin)) {
 		return notify.error("Only 0-9 are Allowed!");
 	}
 
-	if (password.length !== 4) {
-		return notify.error("Password Must Be 4 Digits!");
+	if (pin.length !== 4) {
+		return notify.error("PIN Must Be 4 Digits!");
 	}
 
-	const hashedPassword = await hashPassword(password);
+	const hashedPIN = await hashPIN(pin);
 
-	if (hashedPassword) {
-		const user = new User(name, mobile, hashedPassword);
+	if (hashedPIN) {
+		const user = new User(name, mobile, hashedPIN);
 
 		try {
 			const result = user.save();
@@ -53,7 +50,7 @@ export const handleRegister = async (
 				// Clear the input fields
 				$("#name").val("");
 				$("#mobile-reg").val("");
-				$("#password-reg").val("");
+				$("#reg-pin").val("");
 
 				// Show Login page
 				toggleTabs($("#login-form"), $("#register-form"));
@@ -67,8 +64,6 @@ export const handleRegister = async (
 			}
 
 			return notify.error("An Unknown Error Occurred!");
-		} finally {
-			setIsLoading(false);
 		}
 	}
 

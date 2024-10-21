@@ -7,10 +7,10 @@ import { handleRegister } from "./modules/registerForm";
 import { getCurrentUser, logOut } from "./utilities/userMethods";
 import { showLoginScreen, showMainScreen } from "./modules/toggleScreens";
 import { showMenus } from "./modules/showMenus";
-import { setIsLoading } from "./modules/showLoading";
+// import { setIsLoading } from "./modules/showLoading";
 
 $(() => {
-	setIsLoading(true);
+	// setIsLoading(true);
 	// Load current user if already logged in
 	const user = getCurrentUser();
 
@@ -22,7 +22,7 @@ $(() => {
 
 	showMenus();
 
-	setIsLoading(false);
+	// setIsLoading(false);
 
 	// Logout button in the header section
 	$("#log-out").on("click", () => {

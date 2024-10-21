@@ -45,9 +45,98 @@
 
 			<!-- Main Contents -->
 			<main
-				class="h-[calc(100vh-144px)] text-center overflow-y-auto payoo-scrollbar p-6"
+				class="h-[calc(100vh-144px)] overflow-y-auto payoo-scrollbar p-6"
 			>
+				<!-- Menus -->
 				<section id="menus" class="grid grid-cols-3 gap-3"></section>
+
+				<!-- Menu Contents -->
+				<!-- Default Content -->
+
+				<!-- Add Money -->
+				<section id="add-money" class="my-6">
+					<h3 class="text-lg font-bold text-center mb-2">
+						Add Money
+					</h3>
+					<form
+						id="add-money-form"
+						class="flex flex-col items-center gap-3"
+					>
+						<label class="font-semibold" for="bank-name"
+							>Select A Bank</label
+						>
+						<select
+							class="outline-none border-payoo/60 border px-3 py-1.5"
+							id="bank-name"
+							name="name"
+							type="text"
+							placeholder="Select Your Bank"
+						>
+							<option disabled selected value="">
+								Select Your Bank
+							</option>
+							<option value="Sonali Bank">Sonali Bank</option>
+							<option value="Agrani Bank">Agrani Bank</option>
+							<option value="Janata Bank">Janata Bank</option>
+							<option value="BRAC Bank">BRAC Bank</option>
+							<option value="City Bank">City Bank</option>
+							<option value="IFIC Bank">Sonali Bank</option>
+							<option value="Dutch-Bangla Bank">
+								Dutch-Bangla Bank
+							</option>
+							<option value="National Bank">National Bank</option>
+							<option value="Islami Bank">Islami Bank</option>
+							<option value="Standard Chartered Bank">
+								Standard Chartered Bank
+							</option>
+							<option value="Baaper Bank">Baaper Bank</option>
+							<option value="Eastern Bank">Eastern Bank</option>
+							<option value="NCC Bank">NCC Bank</option>
+							<option value="Bank Al-Falah">Bank Al-Falah</option>
+							<option value="Bank Asia">Bank Asia</option>
+						</select>
+
+						<label class="font-semibold" for="bank-account"
+							>Bank Account Number</label
+						>
+						<input
+							class="outline-none border-payoo/60 border px-3 py-1.5"
+							id="bank-account"
+							name="bank-account"
+							type="number"
+							placeholder="Enter Account Number"
+						/>
+
+						<label class="font-semibold" for="add-amount"
+							>Amount to Add</label
+						>
+						<input
+							class="outline-none border-payoo/60 border px-3 py-1.5"
+							id="add-amount"
+							name="add-amount"
+							type="number"
+							placeholder="Amount to Add"
+						/>
+
+						<label class="font-semibold" for="add-pin"
+							>Your PIN</label
+						>
+						<input
+							class="outline-none border-payoo/60 border px-3 py-1.5"
+							id="add-pin"
+							name="add-pin"
+							type="password"
+							placeholder="Enter Your PIN"
+						/>
+						<button
+							class="text-lg font-bold text-white bg-payoo border-payoo border px-6 py-2 rounded-full hover:text-payoo hover:bg-transparent transition-all duration-500 cursor-pointer"
+							id="add-money-btn"
+							type="submit"
+						>
+							Add Money
+						</button>
+					</form>
+				</section>
 			</main>
 			<!-- Footer -->
 			<footer
@@ -91,7 +180,7 @@
 					</button>
 				</div>
 				<!-- Login -->
-				<form id="login-form" class="flex flex-col gap-2">
+				<form id="login-form" class="flex flex-col gap-3">
 					<label class="font-semibold" for="mobile"
 						>Mobile Number</label
 					>
@@ -103,15 +192,15 @@
 						placeholder="Enter Your Number"
 					/>
 
-					<label class="font-semibold" for="password"
-						>4 Digit Pin</label
+					<label class="font-semibold" for="login-pin"
+						>4 Digit PIN</label
 					>
 					<input
 						class="outline-none border-payoo/60 border px-4 py-1.5"
-						id="password"
-						name="password"
+						id="login-pin"
+						name="login-pin"
 						type="password"
-						placeholder="Enter Your Password"
+						placeholder="Enter Your PIN"
 					/>
 					<button
 						class="text-lg font-bold text-white bg-payoo border-payoo border px-6 py-2 rounded-full hover:text-payoo hover:bg-transparent transition-all duration-500 cursor-pointer"
@@ -122,8 +211,8 @@
 					</button>
 				</form>
 				<!-- Register -->
-				<form id="register-form" class="hidden flex-col gap-2">
-					<label class="font-semibold" for="mobile">Name</label>
+				<form id="register-form" class="hidden flex-col gap-3">
+					<label class="font-semibold" for="name">Name</label>
 					<input
 						class="outline-none border-payoo/60 border px-4 py-1.5"
 						id="name"
@@ -143,15 +232,15 @@
 						placeholder="Enter Your Number"
 					/>
 
-					<label class="font-semibold" for="password-reg"
-						>4 Digit Pin</label
+					<label class="font-semibold" for="reg-pin"
+						>4 Digit PIN</label
 					>
 					<input
 						class="outline-none border-payoo/60 border px-4 py-1.5"
-						id="password-reg"
-						name="password-reg"
+						id="reg-pin"
+						name="reg-pin"
 						type="password"
-						placeholder="Enter Your Password"
+						placeholder="Enter Your PIN"
 					/>
 					<button
 						class="text-lg font-bold text-white bg-payoo border-payoo border px-6 py-2 rounded-full hover:text-payoo hover:bg-transparent transition-all duration-500 cursor-pointer"

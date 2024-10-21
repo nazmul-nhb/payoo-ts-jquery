@@ -25,7 +25,7 @@ export class User {
 	constructor(
 		public name: string,
 		public mobile: string,
-		public password: string,
+		public pin: string,
 		private balance: number = 0,
 		public id: string = generateID({
 			prefix: "payoo",
@@ -60,7 +60,7 @@ export class User {
 		return new User(
 			user.name,
 			user.mobile,
-			user.password,
+			user.pin,
 			user.balance,
 			user.id,
 			new Date(user.creationTime)

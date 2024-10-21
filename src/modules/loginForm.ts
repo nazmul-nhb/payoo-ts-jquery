@@ -1,20 +1,17 @@
 import $ from "jquery";
 import { notify } from "../utilities/notify";
-import { matchPassword } from "../utilities/passwordUtils";
+import { matchPIN } from "../utilities/hashingUtils";
 import { findUser, setCurrentUser } from "../utilities/userMethods";
 import { NotyfNotification } from "notyf";
 import { showMainScreen } from "./toggleScreens";
-import { setIsLoading } from "./showLoading";
 
 export const handleLogin = async (
 	e: JQuery.ClickEvent
 ): Promise<NotyfNotification> => {
 	e.preventDefault();
 
-	setIsLoading(true);
-
 	const mobile = $("#mobile").val() as string;
-	const password = $("#password").val() as string;
+	const pin = $("#login-pin").val() as string;
 
 	if (!mobile) {
 		return notify.error("Mobile Number is Missing!");
@@ -24,27 +21,27 @@ export const handleLogin = async (
 		return notify.error("Number Must Be 11 Digits!");
 	}
 
-	if (!password) {
-		return notify.error("Your Password is Missing!");
+	if (!pin) {
+		return notify.error("Your PIN is Missing!");
 	}
 
-	if (!/^\d+$/.test(password)) {
+	if (!/^\d+$/.test(pin)) {
 		return notify.error("Only 0-9 are Allowed!");
 	}
 
-	if (password.length !== 4) {
-		return notify.error("Password Must Be 4 Digits!");
+	if (pin.length !== 4) {
+		return notify.error("PIN Must Be 4 Digits!");
 	}
 
 	try {
 		const user = findUser(mobile);
 
-		const isMatched = await matchPassword(password, user.password);
+		const isMatched = await matchPIN(pin, user.pin);
 
 		if (isMatched) {
 			// Clear the input field
 			$("#mobile").val("");
-			$("#password").val("");
+			$("#login-pin").val("");
 
 			// Set logged in user as current user and save in localStorage
 			setCurrentUser(user.mobile);
@@ -55,14 +52,12 @@ export const handleLogin = async (
 			return notify.success("Successfully Logged In!");
 		}
 
-		return notify.error("Wrong Password!");
+		return notify.error("Wrong PIN!");
 	} catch (error) {
 		if (error instanceof Error) {
 			return notify.error(error.message);
 		}
 
 		return notify.error("An Unknown Error Occurred!");
-	} finally {
-		setIsLoading(false);
 	}
 };

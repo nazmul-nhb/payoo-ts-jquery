@@ -2,7 +2,7 @@ import type { TransactionType } from "./types";
 
 export interface ICredentials {
 	mobile: string;
-	password: string;
+	pin: string;
 }
 
 export interface IUser extends ICredentials {
