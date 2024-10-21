@@ -1,9 +1,11 @@
-import { IUser } from "../types/interfaces";
+import { IAddMoney, ITransactionInput, IUser } from "../types/interfaces";
 import { generateID } from "@nazmul-nhb/id-generator";
 import {
 	getFromLocalStorage,
 	saveToLocalStorage,
 } from "../utilities/localStorage";
+import { updateUser } from "../utilities/userMethods";
+import { generateTransactionId } from "../utilities/helpers";
 
 export class User {
 	constructor(
@@ -19,10 +21,6 @@ export class User {
 		}),
 		public creationTime: Date = new Date()
 	) {}
-
-	public getBalance(): number {
-		return this.balance;
-	}
 
 	public save(): { insertedId: string } {
 		const users = getFromLocalStorage<User>("users");
@@ -48,4 +46,33 @@ export class User {
 			new Date(user.creationTime)
 		);
 	}
+
+	public getBalance(): number {
+		return this.balance;
+	}
+
+	public addMoney = (details: ITransactionInput): IAddMoney => {
+		const { type, amount, participant } = details;
+
+		const previousBalance = this.balance;
+
+		this.balance += amount;
+
+		updateUser(this.mobile, { balance: this.balance });
+
+		const transactionDetails = {
+			transactionId: generateTransactionId(type),
+			userNumber: this.mobile,
+			amount,
+			previousBalance,
+			currentBalance: this.balance + amount,
+			source: participant,
+			transactionType: type,
+			transactionTime: new Date(),
+		};
+
+		saveToLocalStorage<IAddMoney>("transactions", transactionDetails);
+
+		return transactionDetails;
+	};
 }

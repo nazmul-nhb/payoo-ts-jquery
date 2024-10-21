@@ -1,7 +1,7 @@
 {
 	"name": "payoo-ts-jquery",
 	"private": true,
-	"version": "1.0.1",
+	"version": "1.1.1",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
@@ -23,6 +23,7 @@
 		"bcryptjs": "^2.4.3",
 		"buffer": "^6.0.3",
 		"crypto-browserify": "^3.12.0",
+		"dayjs": "^1.11.13",
 		"jquery": "^3.7.1",
 		"notyf": "^3.10.0"
 	}

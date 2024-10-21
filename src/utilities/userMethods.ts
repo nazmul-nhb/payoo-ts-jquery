@@ -1,5 +1,5 @@
 import { User } from "../classes/User";
-import { IUser } from "../types/interfaces";
+import { IUpdateResponse, IUser } from "../types/interfaces";
 import { getFromLocalStorage } from "./localStorage";
 import { notify } from "./notify";
 
@@ -41,4 +41,27 @@ export const setCurrentUser = (mobile: string): void => {
 export const logOut = (): void => {
 	localStorage.removeItem("payooUser");
 	notify.success("Successfully Logged Out!");
+};
+
+export const updateUser = (
+	mobile: string,
+	user: Partial<IUser>
+): IUpdateResponse => {
+	const users = getFromLocalStorage<IUser>("users");
+
+	const userIndex = users.findIndex(
+		(savedUser) => savedUser.mobile === mobile
+	);
+
+	if (userIndex === -1) {
+		return { success: false, message: "User Not Found!" };
+	}
+
+	const updatedUser = { ...users[userIndex], ...user };
+
+	users[userIndex] = updatedUser;
+
+	localStorage.setItem("users", JSON.stringify(users));
+
+	return { success: true };
 };
