@@ -7,6 +7,7 @@ import { handleRegister } from "./modules/registerForm";
 import { getCurrentUser, logOut } from "./utilities/userMethods";
 import { showLoginScreen, showMainScreen } from "./modules/toggleScreens";
 import { showMenus } from "./modules/showMenus";
+import { handleAddMoney } from "./modules/addMoney";
 // import { setIsLoading } from "./modules/showLoading";
 
 $(() => {
@@ -46,6 +47,9 @@ $(() => {
 	$("#login-btn").on("click", (e) => handleLogin(e));
 	// Register button in the form
 	$("#register-btn").on("click", (e) => handleRegister(e));
+
+	// Add Money Button
+	$("#add-money-btn").on("click", (e) => handleAddMoney(e));
 
 	// Footer Year
 	$("#year").text(new Date().getFullYear());

@@ -53,11 +53,11 @@ export interface ITransfer extends ITransaction {
 export interface ITransactionInput {
 	amount: number;
 	participant: string;
-	type: TransactionType;
 }
 
 export interface IPayBillInput extends ITransactionInput {
 	institute: string;
+	// type: TransactionType;
 }
 
 export interface IAddMoneyInput extends ITransactionInput {

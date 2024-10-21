@@ -1,5 +1,8 @@
 import bcrypt from "bcryptjs";
 
+/**
+ * Hash a PIN and returns the hashed PIN or nothing if there is any error
+ */
 export const hashPIN = async (pin: string): Promise<string | null> => {
 	try {
 		const hashedPIN = await bcrypt.hash(pin, 10);
@@ -10,6 +13,9 @@ export const hashPIN = async (pin: string): Promise<string | null> => {
 	}
 };
 
+/**
+ * Match PIN with the stored PIN and returns a boolean
+ */
 export const matchPIN = async (
 	pin: string,
 	storedPIN: string

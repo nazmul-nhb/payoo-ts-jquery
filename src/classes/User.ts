@@ -26,7 +26,7 @@ export class User {
 		public name: string,
 		public mobile: string,
 		public pin: string,
-		private balance: number = 0,
+		private balance: number = 5000,
 		public id: string = generateID({
 			prefix: "payoo",
 			length: 8,
@@ -119,9 +119,9 @@ export class User {
 	 * Method to add money
 	 */
 	public addMoney(details: IAddMoneyInput): IUpdateResponse {
-		const { type, amount, bank, participant } = details;
+		const { amount, bank, participant } = details;
 		return this.handleTransaction<IAddMoney>(
-			type,
+			"add-money",
 			amount,
 			{ source: { bank, account: participant } },
 			true
@@ -132,9 +132,9 @@ export class User {
 	 * Method to cash out money
 	 */
 	public cashOut(details: ITransactionInput): IUpdateResponse {
-		const { type, amount, participant } = details;
+		const { amount, participant } = details;
 		return this.handleTransaction<ICashOut>(
-			type,
+			"cash-out",
 			amount,
 			{ agent: participant },
 			false
@@ -145,9 +145,9 @@ export class User {
 	 * Method to pay bill
 	 */
 	public payBill(details: IPayBillInput): IUpdateResponse {
-		const { type, institute, amount, participant } = details;
+		const { institute, amount, participant } = details;
 		return this.handleTransaction<IPayBill>(
-			type,
+			"pay-bill",
 			amount,
 			{ source: { institute, account: participant } },
 			false
@@ -158,9 +158,9 @@ export class User {
 	 * Method to transfer money
 	 */
 	public transferMoney(details: ITransactionInput): IUpdateResponse {
-		const { type, amount, participant } = details;
+		const {  amount, participant } = details;
 		return this.handleTransaction<ITransfer>(
-			type,
+			"transfer",
 			amount,
 			{ account: participant },
 			false
