@@ -1,5 +1,5 @@
 import { generateID } from "@nazmul-nhb/id-generator";
-import { TransactionType } from "../types/types";
+import type { TransactionType } from "../types/types";
 
 export const generateTransactionId = (type: TransactionType): string => {
 	return generateID({

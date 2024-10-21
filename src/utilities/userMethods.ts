@@ -1,5 +1,5 @@
 import { User } from "../classes/User";
-import { IUpdateResponse, IUser } from "../types/interfaces";
+import type { IUpdateResponse, IUser } from "../types/interfaces";
 import { getFromLocalStorage } from "./localStorage";
 import { notify } from "./notify";
 

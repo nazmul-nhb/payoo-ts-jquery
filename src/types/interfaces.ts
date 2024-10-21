@@ -1,4 +1,4 @@
-import { TransactionType } from "./types";
+import type { TransactionType } from "./types";
 
 export interface ICredentials {
 	mobile: string;
@@ -44,6 +44,10 @@ export interface IPayBill extends ITransaction {
 
 export interface ICashOut extends ITransaction {
 	agent: string;
+}
+
+export interface ITransfer extends ITransaction {
+	account: string;
 }
 
 export interface ITransactionInput {

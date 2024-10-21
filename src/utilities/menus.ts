@@ -1,4 +1,4 @@
-import { IMenu } from "../types/interfaces";
+import type { IMenu } from "../types/interfaces";
 import add from "../assets/icons/add.svg";
 import manage from "../assets/icons/manage.svg";
 import pay from "../assets/icons/pay.svg";

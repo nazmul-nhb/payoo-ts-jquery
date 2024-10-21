@@ -5,6 +5,7 @@ import type {
 	IPayBill,
 	IPayBillInput,
 	ITransactionInput,
+	ITransfer,
 	IUpdateResponse,
 	IUser,
 } from "../types/interfaces";
@@ -122,9 +123,7 @@ export class User {
 		return this.handleTransaction<IAddMoney>(
 			type,
 			amount,
-			{
-				source: { bank, account: participant },
-			},
+			{ source: { bank, account: participant } },
 			true
 		);
 	}
@@ -137,9 +136,7 @@ export class User {
 		return this.handleTransaction<ICashOut>(
 			type,
 			amount,
-			{
-				agent: participant,
-			},
+			{ agent: participant },
 			false
 		);
 	}
@@ -152,9 +149,20 @@ export class User {
 		return this.handleTransaction<IPayBill>(
 			type,
 			amount,
-			{
-				source: { institute, account: participant },
-			},
+			{ source: { institute, account: participant } },
+			false
+		);
+	}
+
+	/**
+	 * Method to transfer money
+	 */
+	public transferMoney(details: ITransactionInput): IUpdateResponse {
+		const { type, amount, participant } = details;
+		return this.handleTransaction<ITransfer>(
+			type,
+			amount,
+			{ account: participant },
 			false
 		);
 	}

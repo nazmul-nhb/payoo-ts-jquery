@@ -2,7 +2,7 @@ import $ from "jquery";
 import { notify } from "../utilities/notify";
 import { hashPassword } from "../utilities/passwordUtils";
 import { User } from "../classes/User";
-import { NotyfNotification } from "notyf";
+import type { NotyfNotification } from "notyf";
 import { toggleButtonState, toggleTabs } from "./tabsToggler";
 import { setIsLoading } from "./showLoading";
 
