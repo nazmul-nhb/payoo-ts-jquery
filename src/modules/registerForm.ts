@@ -1,8 +1,8 @@
 import $ from "jquery";
-import { notify } from "../utilities/notify";
-import { hashPIN } from "../utilities/hashingUtils";
 import { User } from "../classes/User";
+import { notify } from "../utilities/notify";
 import type { NotyfNotification } from "notyf";
+import { hashPIN } from "../utilities/hashingUtils";
 import { toggleButtonState, toggleTabs } from "./tabsToggler";
 
 export const handleRegister = async (
@@ -19,7 +19,7 @@ export const handleRegister = async (
 	}
 
 	if (!mobile) {
-		return notify.error("Mobile Number is Missing!");
+		return notify.error("Your Number is Missing!");
 	}
 
 	if (mobile.length !== 11) {
@@ -49,9 +49,7 @@ export const handleRegister = async (
 
 			if (result.insertedId) {
 				// Clear the input fields
-				$("#name").val("");
-				$("#mobile-reg").val("");
-				$("#reg-pin").val("");
+				$("#register-form input").val("");
 
 				// Show Login page
 				toggleTabs($("#login-form"), $("#register-form"));

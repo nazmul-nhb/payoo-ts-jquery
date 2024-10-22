@@ -7,8 +7,9 @@ import { handleRegister } from "./modules/registerForm";
 import { getCurrentUser, logOut } from "./utilities/userMethods";
 import { showLoginScreen, showMainScreen } from "./modules/toggleScreens";
 import { showMenus } from "./modules/showMenus";
-import { handleAddMoney } from "./modules/addMoney";
 import { showBalance } from "./modules/showBalance";
+import { handleTransaction } from "./modules/handleTransaction";
+import type { IAddMoneyInput, IPayBillInput } from "./types/interfaces";
 // import { setIsLoading } from "./modules/showLoading";
 
 $(() => {
@@ -19,19 +20,42 @@ $(() => {
 	if (user) {
 		showMainScreen();
 		showBalance(user.getBalance());
+		showMenus();
+
+		// setIsLoading(false);
+
+		// Logout button in the header section
+		$("#log-out").on("click", () => {
+			logOut();
+			showLoginScreen();
+		});
+
+		// Add Money
+		$("#add-money-btn").on("click", (e) =>
+			handleTransaction(e, "add-money", (details) =>
+				user.addMoney(details as IAddMoneyInput)
+			)
+		);
+
+		// Cash Out
+		$("#cash-out-btn").on("click", (e) =>
+			handleTransaction(e, "cash-out", (details) => user.cashOut(details))
+		);
+		$("#transfer-btn").on("click", (e) =>
+			handleTransaction(e, "transfer", (details) =>
+				user.transferMoney(details)
+			)
+		);
+
+		// Pay Bill
+		$("#pay-bill-btn").on("click", (e) =>
+			handleTransaction(e, "pay-bill", (details) =>
+				user.payBill(details as IPayBillInput)
+			)
+		);
 	} else {
 		showLoginScreen();
 	}
-
-	showMenus();
-
-	// setIsLoading(false);
-
-	// Logout button in the header section
-	$("#log-out").on("click", () => {
-		logOut();
-		showLoginScreen();
-	});
 
 	// Show Login Form (Tab)
 	$("#login-tab").on("click", () => {
@@ -49,9 +73,6 @@ $(() => {
 	$("#login-btn").on("click", (e) => handleLogin(e));
 	// Register button in the form
 	$("#register-btn").on("click", (e) => handleRegister(e));
-
-	// Add Money Button
-	$("#add-money-btn").on("click", (e) => handleAddMoney(e));
 
 	// Footer Year
 	$("#year").text(new Date().getFullYear());

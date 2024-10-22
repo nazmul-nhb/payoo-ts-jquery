@@ -1,3 +1,4 @@
+import { generateID } from "@nazmul-nhb/id-generator";
 import type {
 	IAddMoney,
 	IAddMoneyInput,
@@ -9,7 +10,6 @@ import type {
 	IUpdateResponse,
 	IUser,
 } from "../types/interfaces";
-import { generateID } from "@nazmul-nhb/id-generator";
 import {
 	getFromLocalStorage,
 	saveToLocalStorage,

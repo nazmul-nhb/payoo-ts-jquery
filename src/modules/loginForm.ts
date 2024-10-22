@@ -15,7 +15,7 @@ export const handleLogin = async (
 	const pin = $("#login-pin").val() as string;
 
 	if (!mobile) {
-		return notify.error("Mobile Number is Missing!");
+		return notify.error("Enter Your Mobile Number!");
 	}
 
 	if (mobile.length !== 11) {
@@ -23,7 +23,7 @@ export const handleLogin = async (
 	}
 
 	if (!pin) {
-		return notify.error("Your PIN is Missing!");
+		return notify.error("Enter Your PIN!");
 	}
 
 	if (!/^\d+$/.test(pin)) {
@@ -41,8 +41,7 @@ export const handleLogin = async (
 
 		if (isMatched) {
 			// Clear the input field
-			$("#mobile").val("");
-			$("#login-pin").val("");
+			$("#login-form input").val("");
 
 			// Set logged in user as current user and save in localStorage
 			setCurrentUser(user.mobile);

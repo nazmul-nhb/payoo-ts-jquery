@@ -57,7 +57,6 @@ export interface ITransactionInput {
 
 export interface IPayBillInput extends ITransactionInput {
 	institute: string;
-	// type: TransactionType;
 }
 
 export interface IAddMoneyInput extends ITransactionInput {
