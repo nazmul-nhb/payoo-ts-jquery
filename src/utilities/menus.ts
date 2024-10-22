@@ -8,33 +8,33 @@ import transfer from "../assets/icons/transfer.svg";
 
 export const menus: IMenu[] = [
 	{
-		id: "01",
+		id: "add-money",
 		title: "$ Add",
 		image: add,
 	},
 	{
-		id: "02",
+		id: "cash-out",
 		title: "CashOut",
 		image: out,
 	},
 	{
-		id: "03",
+		id: "transfer-money",
 		title: "Transfer",
 		image: transfer,
 	},
 	{
-		id: "04",
+		id: "manage-finance",
 		title: "Manage",
 		image: manage,
 	},
 	{
-		id: "05",
+		id: "pay-bill",
 		title: "Pay Bill",
 		image: pay,
 	},
 	{
-		id: "06",
-		title: "Transactions",
+		id: "transaction-history",
+		title: "History",
 		image: transaction,
 	},
 ];

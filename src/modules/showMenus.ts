@@ -6,7 +6,7 @@ export const showMenus = (): void => {
 
 	menuContainer.html("");
 
-	let activeMenuId: string | null = null;
+	let activeId: string | null = null;
 
 	menus.forEach((menu) => {
 		const { id, title, image } = menu;
@@ -37,19 +37,23 @@ export const showMenus = (): void => {
 		// Handle click event for the current menu item
 		$(`#menu-${id}`).on("click", () => {
 			// If there's an active menu, remove the active classes and add the inactive classes
-			if (activeMenuId !== null) {
-				$(`#menu-${activeMenuId}`).toggleClass(
+			if (activeId !== null) {
+				$(`#menu-${activeId}`).toggleClass(
 					"bg-payoo/90 text-white hover:text-payoo bg-payoo/5 text-payoo"
 				);
+
+				$(`#${activeId}-section`).hide();
+				$(`#${id}-section`).show();
 			}
 
 			// Set the clicked menu as active
-			activeMenuId = id;
+			activeId = id;
 
 			// Toggle the classes for the clicked menu item
 			$(`#menu-${id}`).toggleClass(
 				"bg-payoo/90 text-white hover:text-payoo bg-payoo/5 text-payoo"
 			);
+			console.log({ id, activeMenuId: activeId });
 		});
 	});
 };

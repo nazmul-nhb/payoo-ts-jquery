@@ -54,7 +54,11 @@
 				<!-- Default Content -->
 
 				<!-- Add Money -->
-				<section id="add-money" class="my-6">
+				<section
+					id="add-money-section"
+					class="my-6"
+					style="display: none"
+				>
 					<h3 class="text-lg font-bold text-center mb-2">
 						Add Money
 					</h3>
@@ -62,13 +66,13 @@
 						id="add-money-form"
 						class="flex flex-col items-center gap-3"
 					>
-						<label class="font-semibold" for="bank-name"
+						<label class="font-semibold" for="bill-name"
 							>Select A Bank</label
 						>
 						<select
 							class="outline-none border-payoo/60 border px-3 py-1.5"
 							id="bank-name"
-							name="name"
+							name="bank-name"
 							type="text"
 							placeholder="Select Your Bank"
 						>
@@ -80,7 +84,7 @@
 							<option value="Janata Bank">Janata Bank</option>
 							<option value="BRAC Bank">BRAC Bank</option>
 							<option value="City Bank">City Bank</option>
-							<option value="IFIC Bank">Sonali Bank</option>
+							<option value="IFIC Bank">IFIC Bank</option>
 							<option value="Dutch-Bangla Bank">
 								Dutch-Bangla Bank
 							</option>
@@ -134,6 +138,202 @@
 							type="submit"
 						>
 							Add Money
+						</button>
+					</form>
+				</section>
+
+				<!-- Cash Out -->
+				<section
+					id="cash-out-section"
+					class="my-6"
+					style="display: none"
+				>
+					<h3 class="text-lg font-bold text-center mb-2">Cash Out</h3>
+					<form
+						id="cash-out-form"
+						class="flex flex-col items-center gap-3"
+					>
+						<label class="font-semibold" for="agent-account"
+							>Agent Number</label
+						>
+						<input
+							class="outline-none border-payoo/60 border px-3 py-1.5"
+							id="agent-account"
+							name="agent-account"
+							type="number"
+							placeholder="Enter Agent Number"
+						/>
+
+						<label class="font-semibold" for="cash-out-amount"
+							>Amount to Cash Out</label
+						>
+						<input
+							class="outline-none border-payoo/60 border px-3 py-1.5"
+							id="cash-out-amount"
+							name="cash-out-amount"
+							type="number"
+							placeholder="Amount to Cash Out"
+						/>
+
+						<label class="font-semibold" for="cash-out-pin"
+							>Your PIN</label
+						>
+						<input
+							class="outline-none border-payoo/60 border px-3 py-1.5"
+							id="cash-out-pin"
+							name="cash-out-pin"
+							type="password"
+							placeholder="Enter Your PIN"
+						/>
+						<button
+							class="text-lg font-bold text-white bg-payoo border-payoo border px-6 py-2 rounded-full hover:text-payoo hover:bg-transparent transition-all duration-500 cursor-pointer"
+							id="cash-out-btn"
+							type="submit"
+						>
+							Withdraw Money
+						</button>
+					</form>
+				</section>
+
+				<!-- Transfer Money -->
+				<section
+					id="transfer-money-section"
+					class="my-6"
+					style="display: none"
+				>
+					<h3 class="text-lg font-bold text-center mb-2">
+						Transfer Money
+					</h3>
+					<form
+						id="transfer-form"
+						class="flex flex-col items-center gap-3"
+					>
+						<label class="font-semibold" for="transfer-account"
+							>User Account Number</label
+						>
+						<input
+							class="outline-none border-payoo/60 border px-3 py-1.5"
+							id="transfer-account"
+							name="transfer-account"
+							type="number"
+							placeholder="Enter User Account"
+						/>
+
+						<label class="font-semibold" for="transfer-amount"
+							>Amount to Transfer</label
+						>
+						<input
+							class="outline-none border-payoo/60 border px-3 py-1.5"
+							id="transfer-amount"
+							name="transfer-amount"
+							type="number"
+							placeholder="Amount to Transfer"
+						/>
+
+						<label class="font-semibold" for="transfer-pin"
+							>Your PIN</label
+						>
+						<input
+							class="outline-none border-payoo/60 border px-3 py-1.5"
+							id="transfer-pin"
+							name="transfer-pin"
+							type="password"
+							placeholder="Enter Your PIN"
+						/>
+						<button
+							class="text-lg font-bold text-white bg-payoo border-payoo border px-6 py-2 rounded-full hover:text-payoo hover:bg-transparent transition-all duration-500 cursor-pointer"
+							id="transfer-btn"
+							type="submit"
+						>
+							Transfer Money
+						</button>
+					</form>
+				</section>
+
+				<!-- Pay Bill -->
+				<section
+					id="pay-bill-section"
+					class="my-6"
+					style="display: none"
+				>
+					<h3 class="text-lg font-bold text-center mb-2">Pay Bill</h3>
+					<form
+						id="pay-bill-form"
+						class="flex flex-col items-center gap-3"
+					>
+						<label class="font-semibold" for="bill-name"
+							>Select to Pay</label
+						>
+						<select
+							class="outline-none border-payoo/60 border px-3 py-1.5"
+							id="bill-name"
+							name="bill-name"
+							type="text"
+							placeholder="Select to Pay"
+						>
+							<option disabled selected value="">
+								Select to Pay
+							</option>
+							<option value="Internet Bill">Internet Bill</option>
+							<option value="Bank Deposit">Bank Deposit</option>
+							<option value="Gas Bill">Gas Bill</option>
+							<option value="Electricity Bill">
+								Electricity Bill
+							</option>
+							<option value="Tuition Fee">Tuition Fee</option>
+							<option value="Admission Fee">Admission Fee</option>
+							<option value="NGO Loan">NGO Loan</option>
+							<option value="Govt. Service">Govt. Service</option>
+							<option value="Water Bill">Water Bill</option>
+							<option value="Credit Card">Credit Card</option>
+							<option value="Telephone Bill">
+								Telephone Bill
+							</option>
+							<option value="TV Service">TV Service</option>
+							<option value="Insurance Payment">
+								Insurance Payment
+							</option>
+							<option value="Others">Others</option>
+						</select>
+
+						<label class="font-semibold" for="bill-account"
+							>Account Number</label
+						>
+						<input
+							class="outline-none border-payoo/60 border px-3 py-1.5"
+							id="bill-account"
+							name="bill-account"
+							type="number"
+							placeholder="Enter Account Number"
+						/>
+
+						<label class="font-semibold" for="bill-amount"
+							>Amount to Pay</label
+						>
+						<input
+							class="outline-none border-payoo/60 border px-3 py-1.5"
+							id="bill-amount"
+							name="bill-amount"
+							type="number"
+							placeholder="Amount to Pay"
+						/>
+
+						<label class="font-semibold" for="bill-pin"
+							>Your PIN</label
+						>
+						<input
+							class="outline-none border-payoo/60 border px-3 py-1.5"
+							id="bill-pin"
+							name="bill-pin"
+							type="password"
+							placeholder="Enter Your PIN"
+						/>
+						<button
+							class="text-lg font-bold text-white bg-payoo border-payoo border px-6 py-2 rounded-full hover:text-payoo hover:bg-transparent transition-all duration-500 cursor-pointer"
+							id="pay-bill-btn"
+							type="submit"
+						>
+							Pay Now
 						</button>
 					</form>
 				</section>
