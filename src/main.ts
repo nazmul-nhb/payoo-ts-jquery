@@ -53,6 +53,13 @@ $(() => {
 				user.payBill(details as IPayBillInput)
 			)
 		);
+
+		// Button to take home from Error Screen
+		$("#error-handler").on("click", () => {
+			history.pushState(null, "", "/");
+			$("#not-found").addClass("hidden");
+			$("#not-found").removeClass("flex");
+		});
 	} else {
 		showLoginScreen();
 	}
