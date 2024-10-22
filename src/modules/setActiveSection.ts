@@ -4,8 +4,6 @@ export const setActiveSection = (
 	toHide: string | null,
 	toShow: string
 ): void => {
-	console.log({ toHide });
-
 	if (toHide) {
 		// Remove the active styles from the previously active menu and hide the section
 		$(`#menu-${toHide}`)
@@ -17,8 +15,6 @@ export const setActiveSection = (
 
 	// Update the toHide variable to the new active ID
 	toHide = toShow;
-
-	console.log({ toShow, toHide });
 
 	// Add the active styles to the newly clicked menu and show the section
 	$(`#menu-${toShow}`)

@@ -1,6 +1,6 @@
 import "./style.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
 import $ from "jquery";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import { handleLogin } from "./modules/loginForm";
 import { toggleButtonState, toggleTabs } from "./modules/tabsToggler";
 import { handleRegister } from "./modules/registerForm";
@@ -18,7 +18,7 @@ $(() => {
 
 	if (user) {
 		showMainScreen();
-		showBalance(user.getBalance())
+		showBalance(user.getBalance());
 	} else {
 		showLoginScreen();
 	}
