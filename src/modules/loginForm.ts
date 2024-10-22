@@ -4,6 +4,7 @@ import { matchPIN } from "../utilities/hashingUtils";
 import { findUser, setCurrentUser } from "../utilities/userMethods";
 import { NotyfNotification } from "notyf";
 import { showMainScreen } from "./toggleScreens";
+import { showBalance } from "./showBalance";
 
 export const handleLogin = async (
 	e: JQuery.ClickEvent
@@ -48,6 +49,7 @@ export const handleLogin = async (
 
 			// Hide login/register screen & Show main screen
 			showMainScreen();
+			showBalance(user.getBalance());
 
 			return notify.success("Successfully Logged In!");
 		}

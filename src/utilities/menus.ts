@@ -9,7 +9,7 @@ import transfer from "../assets/icons/transfer.svg";
 export const menus: IMenu[] = [
 	{
 		id: "add-money",
-		title: "$ Add",
+		title: "Add Money",
 		image: add,
 	},
 	{

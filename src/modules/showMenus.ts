@@ -10,15 +10,21 @@ export const showMenus = (): void => {
 
 	// Check if there's an ID in the URL on page load
 	const urlPath = window.location.pathname.split("/").pop();
-	console.log({ urlPath });
 
 	if (urlPath) {
-		// activeId = urlPath;
-		setActiveSection(activeId, urlPath);
+		activeId = urlPath;
+		setActiveSection(null, activeId);
 	}
 
 	menus.forEach((menu) => {
 		const { id, title, image } = menu;
+
+		if (urlPath) {
+			// activeId = urlPath;
+			setActiveSection(activeId, urlPath);
+		}
+
+		document.title = `${title} - Payoo`;
 
 		const menuDiv = $("<div></div>");
 		menuDiv.html(
@@ -26,14 +32,14 @@ export const showMenus = (): void => {
 			`
             <figure
                 id="menu-${id}"
-                class="flex flex-col items-center gap-2 cursor-pointer border border-payoo/75 px-4 py-2 rounded-lg font-semibold hover:bg-payoo/20 transition-all duration-500 bg-payoo/5 text-payoo"
+                class="flex flex-col items-center gap-2 cursor-pointer border border-payoo/75 md:px-4 p-2 rounded-lg font-semibold hover:bg-payoo/20 transition-all duration-500 bg-payoo/5 text-payoo"
             >
                 <img
                     class="flex-grow"
                     src="${image}"
                     alt="${title}"
                 />
-                <h3 class="flex-grow">${title}</h3>
+                <h3 class="flex-grow text-sm md:text-base text-center">${title}</h3>
             </figure>
             `
 		);
@@ -48,7 +54,9 @@ export const showMenus = (): void => {
 			activeId = id;
 
 			// Update the browser's URL without reloading the page
-			history.pushState(null, "", `/${id}`); // This updates the URL
+			history.pushState(null, "", `/${id}`);
+
+			document.title = `${title} - Payoo`;
 		});
 	});
 
