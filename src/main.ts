@@ -10,6 +10,7 @@ import { showMenus } from "./modules/showMenus";
 import { showBalance } from "./modules/showBalance";
 import { handleTransaction } from "./modules/handleTransaction";
 import type { IAddMoneyInput, IPayBillInput } from "./types/interfaces";
+import { showHistory } from "./modules/showHistory";
 // import { setIsLoading } from "./modules/showLoading";
 
 $(() => {
@@ -21,6 +22,7 @@ $(() => {
 		showMainScreen();
 		showBalance(user.getBalance());
 		showMenus();
+		showHistory(user.mobile);
 
 		// setIsLoading(false);
 

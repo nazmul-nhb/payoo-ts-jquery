@@ -5,8 +5,8 @@ import { matchPIN } from "../utilities/hashingUtils";
 import { getCurrentUser } from "../utilities/userMethods";
 import { showBalance } from "../modules/showBalance";
 import type { IUpdateResponse } from "../types/interfaces";
-import type { TransactionDetails, Transactions } from "../types/types";
-import { getTransactionDetails } from "../utilities/transactions";
+import type { TransactionInputs, Transactions } from "../types/types";
+import { getTransactionInputs } from "../utilities/transactions";
 
 /**
  * Handles transaction processes.
@@ -17,7 +17,7 @@ import { getTransactionDetails } from "../utilities/transactions";
 export const handleTransaction = async (
 	e: JQuery.ClickEvent,
 	type: Transactions,
-	transactionMethod: (details: TransactionDetails) => IUpdateResponse
+	transactionMethod: (details: TransactionInputs) => IUpdateResponse
 ): Promise<NotyfNotification | null> => {
 	e.preventDefault();
 
@@ -28,7 +28,7 @@ export const handleTransaction = async (
 			return notify.error("User Not Found!");
 		}
 
-		const detailsResult = getTransactionDetails(type);
+		const detailsResult = getTransactionInputs(type);
 
 		if ("pin" in detailsResult && "details" in detailsResult) {
 			const { pin, details } = detailsResult;

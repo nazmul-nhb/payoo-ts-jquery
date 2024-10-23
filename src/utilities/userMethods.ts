@@ -1,5 +1,6 @@
 import { User } from "../classes/User";
 import type { IUpdateResponse, IUser } from "../types/interfaces";
+import { TransactionDetails } from "../types/types";
 import { getFromLocalStorage } from "./localStorage";
 import { notify } from "./notify";
 
@@ -64,4 +65,14 @@ export const updateUser = (
 	localStorage.setItem("users", JSON.stringify(users));
 
 	return { success: true, message: "Successfully Updated!" };
+};
+
+export const getTransactionDetails = (mobile: string): TransactionDetails[] => {
+	const transaction = getFromLocalStorage<TransactionDetails>("transactions");
+
+	const userTransaction = transaction.filter(
+		(trans) => trans.userNumber === mobile
+	);
+
+	return userTransaction;
 };

@@ -1,20 +1,20 @@
 import $ from "jquery";
 import { notify } from "./notify";
 import { NotyfNotification } from "notyf";
-import type { TransactionDetails, Transactions } from "../types/types";
+import type { TransactionInputs, Transactions } from "../types/types";
 
 /**
- * Extracts transaction details from the form based on the transaction type.
+ * Extracts transaction inputs from the form based on the transaction type.
  * Each form has different IDs, so we handle them dynamically.
  * @param type - Type of the transaction ('add-money', 'cash-out', 'transfer', 'pay-bill')
  * @returns Object containing pin & the necessary transaction details
  */
-export const getTransactionDetails = (
+export const getTransactionInputs = (
 	type: Transactions
-): { pin: string; details: TransactionDetails } | NotyfNotification => {
+): { pin: string; details: TransactionInputs } | NotyfNotification => {
 	let amount: number;
 	let pin: string;
-	let details: TransactionDetails;
+	let details: TransactionInputs;
 
 	switch (type) {
 		case "add-money":
@@ -43,8 +43,7 @@ export const getTransactionDetails = (
 			pin = $("#cash-out-pin").val() as string;
 
 			const agentAccount = $("#agent-account").val() as string;
-			if (!agentAccount)
-				return notify.error("Enter account number!");
+			if (!agentAccount) return notify.error("Enter account number!");
 
 			details = {
 				amount,
