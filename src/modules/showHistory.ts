@@ -2,7 +2,7 @@ import $ from "jquery";
 import { getTransactionDetails } from "../utilities/userMethods";
 import { IAddMoney, ICashOut, IPayBill, ITransfer } from "../types/interfaces";
 import { add, out, pay, transfer } from "../utilities/menus";
-import { formatDateWithTime } from "../utilities/formatDate";
+import { formatDateTime } from "../utilities/formatDate";
 import { notify } from "../utilities/notify";
 
 export const showHistory = (mobile: string): void => {
@@ -54,7 +54,7 @@ export const showHistory = (mobile: string): void => {
 						<img src="${add}" alt="Add Money" />
 						<div>
 							<h3>${source.bank}</h3>
-							<h5 class="text-xs text-gray-500">${formatDateWithTime(transactionTime)}</h5>
+							<h5 class="text-xs text-gray-500">${formatDateTime(transactionTime)}</h5>
 						</div>
 					</figure>
 					<div class="text-right">
@@ -80,7 +80,7 @@ export const showHistory = (mobile: string): void => {
 						<img src="${pay}" alt="Pay Bill" />
 						<div>
 							<h3>${source.institute}</h3>
-							<h5 class="text-xs text-gray-500">${formatDateWithTime(transactionTime)}</h5>
+							<h5 class="text-xs text-gray-500">${formatDateTime(transactionTime)}</h5>
 						</div>
 					</figure>
 					<div class="text-right">
@@ -107,7 +107,7 @@ export const showHistory = (mobile: string): void => {
 						<img src="${out}" alt="Cash Out" />
 						<div>
 							<h3>${agent}</h3>
-							<h5 class="text-xs text-gray-500">${formatDateWithTime(transactionTime)}</h5>
+							<h5 class="text-xs text-gray-500">${formatDateTime(transactionTime)}</h5>
 						</div>
 					</figure>
 					<div class="text-right">
@@ -133,7 +133,7 @@ export const showHistory = (mobile: string): void => {
 						<img src="${transfer}" alt="Transfer" />
 						<div>
 							<h3>${account}</h3>
-							<h5 class="text-xs text-gray-500">${formatDateWithTime(transactionTime)}</h5>
+							<h5 class="text-xs text-gray-500">${formatDateTime(transactionTime)}</h5>
 						</div>
 					</figure>
 					<div class="text-right">
@@ -157,7 +157,9 @@ export const showHistory = (mobile: string): void => {
 		});
 
 		$(`#copy-${transactionId}`)
-			.addClass("cursor-pointer text-ellipsis text-nowrap overflow-x-hidden")
+			.addClass(
+				"cursor-pointer text-ellipsis text-nowrap overflow-x-hidden"
+			)
 			.on("click", () => {
 				navigator.clipboard
 					.writeText(transactionId)
