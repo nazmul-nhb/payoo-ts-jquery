@@ -1,8 +1,12 @@
 import $ from "jquery";
 import { menus } from "../utilities/menus";
 import { setActiveSection } from "./setActiveSection";
+import { showHistory } from "./showHistory";
 
-export const showMenus = (): void => {
+export const showMenus = (mobile: string): void => {
+	// Load transaction history
+	showHistory(mobile);
+
 	const menuContainer = $("#menus");
 	menuContainer.html("");
 
@@ -57,6 +61,11 @@ export const showMenus = (): void => {
 			// Set the clicked menu and corresponding section as active
 			setActiveSection(activeId, id);
 
+			// Load fresh history
+			if (id === "transaction-history") {
+				showHistory(mobile);
+			}
+
 			activeId = id;
 
 			// Update the url in browser address bar
@@ -100,6 +109,11 @@ export const showMenus = (): void => {
 				// Set the active menu and section based on the URL
 				setActiveSection(activeId, currentPath);
 				activeId = currentPath;
+
+				// Load fresh history
+				if (currentPath === "transaction-history") {
+					showHistory(mobile);
+				}
 
 				// Update the document title
 				document.title = `${currentMenuItem.text().trim()} - Payoo`;

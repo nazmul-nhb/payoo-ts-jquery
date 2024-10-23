@@ -59,6 +59,12 @@ export const showHistory = (mobile: string): void => {
 					</figure>
 					<h3>$${amount}</h3>
 				</div>
+				<div style="display: none;" id="extra-${transactionId}">
+					<h3 id="copy-${transactionId}">${transactionId}</h3>
+					<h3>From Account: ${source.account}</h3>
+					<h3>Current Balance: ${currentBalance}</h3>
+					<h5>Previous Balance: ${previousBalance}</h5>
+				</div>
 				`
 			);
 		} else if (transactionType === "pay-bill") {
@@ -75,6 +81,12 @@ export const showHistory = (mobile: string): void => {
 						</div>
 					</figure>
 					<h3>$${amount}</h3>
+				</div>
+				<div style="display: none;" id="extra-${transactionId}">
+					<h3 id="copy-${transactionId}">${transactionId}</h3>
+					<h3>From Account: ${source.account}</h3>
+					<h3>Current Balance: ${currentBalance}</h3>
+					<h5>Previous Balance: ${previousBalance}</h5>
 				</div>
 				`
 			);
@@ -94,6 +106,11 @@ export const showHistory = (mobile: string): void => {
 					</figure>
 					<h3>$${amount}</h3>
 				</div>
+				<div style="display: none;" id="extra-${transactionId}">
+					<h3 id="copy-${transactionId}">${transactionId}</h3>
+					<h3>Current Balance: ${currentBalance}</h3>
+					<h5>Previous Balance: ${previousBalance}</h5>
+				</div>
 				`
 			);
 		} else if (transactionType === "transfer") {
@@ -112,6 +129,11 @@ export const showHistory = (mobile: string): void => {
 					</figure>
 					<h3>$${amount}</h3>
 				</div>
+				<div style="display: none;" id="extra-${transactionId}">
+					<h3 id="copy-${transactionId}">${transactionId}</h3>
+					<h3>Current Balance: ${currentBalance}</h3>
+					<h5>Previous Balance: ${previousBalance}</h5>
+				</div>
 				`
 			);
 		}
@@ -119,7 +141,16 @@ export const showHistory = (mobile: string): void => {
 		historyContainer.append(transDiv);
 
 		$(`#${transactionId}`).on("click", () => {
-			notify.success(`Clicked ${transactionId}`);
+			$(`#extra-${transactionId}`).addClass("ml-8").toggle(500);
 		});
+
+		$(`#copy-${transactionId}`)
+			.addClass("cursor-pointer")
+			.on("click", () => {
+				navigator.clipboard
+					.writeText(transactionId)
+					.then(() => notify.success("Transaction ID Copied!"))
+					.catch(() => notify.success("Cannot Copy the Text!"));
+			});
 	});
 };
