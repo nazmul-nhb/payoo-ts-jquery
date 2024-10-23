@@ -11,3 +11,7 @@ export const formatDateOnly = (date: string | Date): string => {
 export const formatTimeOnly = (date: string | Date): string => {
 	return dayjs(date).format("hh:mm:ssa");
 };
+
+export const convertToTimeStamp = (date: string | Date): number => {
+	return new Date(date).getTime();
+};

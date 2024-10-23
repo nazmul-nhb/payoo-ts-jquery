@@ -1,6 +1,7 @@
 import { User } from "../classes/User";
 import type { IUpdateResponse, IUser } from "../types/interfaces";
 import { TransactionDetails } from "../types/types";
+import { convertToTimeStamp } from "./formatDate";
 import { getFromLocalStorage } from "./localStorage";
 import { notify } from "./notify";
 
@@ -70,9 +71,13 @@ export const updateUser = (
 export const getTransactionDetails = (mobile: string): TransactionDetails[] => {
 	const transaction = getFromLocalStorage<TransactionDetails>("transactions");
 
-	const userTransaction = transaction.filter(
-		(trans) => trans.userNumber === mobile
-	);
+	const userTransaction = transaction
+		.filter((trans) => trans.userNumber === mobile)
+		.sort(
+			(a, b) =>
+				convertToTimeStamp(b.transactionTime) -
+				convertToTimeStamp(a.transactionTime)
+		);
 
 	return userTransaction;
 };
