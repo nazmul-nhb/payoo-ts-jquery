@@ -38,3 +38,5 @@ export const menus: IMenu[] = [
 		image: transaction,
 	},
 ];
+
+export { add, pay, out, transfer };
