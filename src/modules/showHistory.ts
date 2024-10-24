@@ -54,27 +54,51 @@ export const showHistory = (mobile: string): void => {
 		if (transactionType === "add-money") {
 			const { source } = transaction as IAddMoney;
 			imageSrc = add;
-			header = source.bank;
+			header = `
+					<h3 class="font-semibold">
+                        <i class="fa-solid fa-piggy-bank"></i> ${source.bank}
+                    </h3>`;
 			title = "Add Money";
-			extraInfo = `<h3>From Account: ${source.account}</h3>`;
+			extraInfo = `<h3>
+							<i class="fa-regular fa-credit-card"></i>
+							From: ${source.account}
+						</h3>`;
 		} else if (transactionType === "pay-bill") {
 			const { source } = transaction as IPayBill;
 			imageSrc = pay;
-			header = source.institute;
+			header = `
+					<h3 class="font-semibold">
+                        <i class="fa-solid fa-building-columns"></i> ${source.institute}
+                    </h3>`;
 			title = "Bill Pay";
-			extraInfo = `<h3>To Account: ${source.account}</h3>`;
+			extraInfo = `<h3>
+							<i class="fa-solid fa-circle-dollar-to-slot"></i>
+							To: ${source.account}
+						</h3>`;
 		} else if (transactionType === "cash-out") {
 			const { agent } = transaction as ICashOut;
 			imageSrc = out;
-			header = agent;
+			header = `
+					<h3 class="font-semibold">
+                        <i class="fa-solid fa-mobile-retro"></i> ${agent}
+                    </h3>`;
 			title = "Cash Out";
-			extraInfo = `<h3>Agent Account: ${agent}</h3>`;
+			extraInfo = `<h3>
+							<i class="fa-solid fa-money-bill-trend-up"></i>
+							Agent: ${agent}
+						</h3>`;
 		} else if (transactionType === "transfer") {
 			const { account } = transaction as ITransfer;
 			imageSrc = transfer;
-			header = account;
+			header = `
+					<h3 class="font-semibold">
+                        <i class="fa-solid fa-mobile-screen"></i> ${account}
+                    </h3>`;
 			title = "Transfer";
-			extraInfo = `<h3>To Account: ${account}</h3>`;
+			extraInfo = `<h3>
+							<i class="fa-solid fa-circle-dollar-to-slot"></i>
+							To: ${account}
+						</h3>`;
 		}
 
 		// Use the template function to create the HTML
