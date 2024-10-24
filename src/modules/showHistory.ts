@@ -4,6 +4,7 @@ import { IAddMoney, ICashOut, IPayBill, ITransfer } from "../types/interfaces";
 import { add, out, pay, transfer } from "../utilities/menus";
 import { formatDateTime } from "../utilities/formatDate";
 import { notify } from "../utilities/notify";
+import { createTransactionHtml } from "./transactionCard";
 
 export const showHistory = (mobile: string): void => {
 	const historyContainer = $("#transaction-history-section");
@@ -44,126 +45,78 @@ export const showHistory = (mobile: string): void => {
 
 		const transDiv = $("<div></div>");
 
+		let imageSrc = "",
+			header = "",
+			title = "",
+			extraInfo = "";
+
+		// Add logic for different transaction types
 		if (transactionType === "add-money") {
 			const { source } = transaction as IAddMoney;
-			transDiv.html(
-				/* html */
-				`
-				<div id="${transactionId}" class="flex items-center justify-between cursor-pointer">
-					<figure class="flex items-center gap-2">
-						<img src="${add}" alt="Add Money" />
-						<div>
-							<h3>${source.bank}</h3>
-							<h5 class="text-xs text-gray-500">${formatDateTime(transactionTime)}</h5>
-						</div>
-					</figure>
-					<div class="text-right">
-						<h3>Add Money</h3>
-						<h3>$${amount}</h3>
-					</div>
-				</div>
-				<div style="display: none;" id="extra-${transactionId}">
-					<h3 id="copy-${transactionId}">${transactionId}</h3>
-					<h3>From Account: ${source.account}</h3>
-					<h3>Current Balance: ${currentBalance}</h3>
-					<h5>Previous Balance: ${previousBalance}</h5>
-				</div>
-				`
-			);
+			imageSrc = add;
+			header = source.bank;
+			title = "Add Money";
+			extraInfo = `<h3>From Account: ${source.account}</h3>`;
 		} else if (transactionType === "pay-bill") {
 			const { source } = transaction as IPayBill;
-			transDiv.html(
-				/* html */
-				`
-				<div id="${transactionId}" class="flex items-center justify-between cursor-pointer">
-					<figure class="flex items-center gap-2">
-						<img src="${pay}" alt="Pay Bill" />
-						<div>
-							<h3>${source.institute}</h3>
-							<h5 class="text-xs text-gray-500">${formatDateTime(transactionTime)}</h5>
-						</div>
-					</figure>
-					<div class="text-right">
-						<h3>Bill Pay</h3>
-						<h3>$${amount}</h3>
-					</div>
-				</div>
-				<div style="display: none;" id="extra-${transactionId}">
-					<h3 id="copy-${transactionId}">${transactionId}</h3>
-					<h3>From Account: ${source.account}</h3>
-					<h3>Current Balance: ${currentBalance}</h3>
-					<h5>Previous Balance: ${previousBalance}</h5>
-				</div>
-				`
-			);
+			imageSrc = pay;
+			header = source.institute;
+			title = "Bill Pay";
+			extraInfo = `<h3>To Account: ${source.account}</h3>`;
 		} else if (transactionType === "cash-out") {
 			const { agent } = transaction as ICashOut;
-
-			transDiv.html(
-				/* html */
-				`
-				<div id="${transactionId}" class="flex items-center justify-between cursor-pointer">
-					<figure class="flex items-center gap-2">
-						<img src="${out}" alt="Cash Out" />
-						<div>
-							<h3>${agent}</h3>
-							<h5 class="text-xs text-gray-500">${formatDateTime(transactionTime)}</h5>
-						</div>
-					</figure>
-					<div class="text-right">
-						<h3>Cash Out</h3>
-						<h3>$${amount}</h3>
-					</div>
-				</div>
-				<div style="display: none;" id="extra-${transactionId}">
-					<h3 id="copy-${transactionId}">${transactionId}</h3>
-					<h3>Current Balance: ${currentBalance}</h3>
-					<h5>Previous Balance: ${previousBalance}</h5>
-				</div>
-				`
-			);
+			imageSrc = out;
+			header = agent;
+			title = "Cash Out";
+			extraInfo = `<h3>Agent Account: ${agent}</h3>`;
 		} else if (transactionType === "transfer") {
 			const { account } = transaction as ITransfer;
-
-			transDiv.html(
-				/* html */
-				`
-				<div id="${transactionId}" class="flex items-center justify-between cursor-pointer">
-					<figure class="flex items-center gap-2">
-						<img src="${transfer}" alt="Transfer" />
-						<div>
-							<h3>${account}</h3>
-							<h5 class="text-xs text-gray-500">${formatDateTime(transactionTime)}</h5>
-						</div>
-					</figure>
-					<div class="text-right">
-						<h3>Transfer</h3>
-						<h3>$${amount}</h3>
-					</div>
-				</div>
-				<div style="display: none;" id="extra-${transactionId}">
-					<h3 id="copy-${transactionId}">${transactionId}</h3>
-					<h3>Current Balance: ${currentBalance}</h3>
-					<h5>Previous Balance: ${previousBalance}</h5>
-				</div>
-				`
-			);
+			imageSrc = transfer;
+			header = account;
+			title = "Transfer";
+			extraInfo = `<h3>To Account: ${account}</h3>`;
 		}
 
+		// Use the template function to create the HTML
+		const transactionHtml = createTransactionHtml(
+			transactionId,
+			imageSrc,
+			header,
+			title,
+			formatDateTime(transactionTime),
+			amount,
+			currentBalance,
+			previousBalance,
+			extraInfo
+		);
+
+		// Add the HTML to the wrapper div
+		transDiv.html(transactionHtml);
+
+		// Add styles to the wrapper div
+		transDiv.addClass(
+			"border border-gray-500 rounded-lg shadow-md shadow-gray-500 px-2 py-1"
+		);
+
+		// Append all transactions one by one in the history container
 		historyContainer.append(transDiv);
 
+		// Toggle between extra transaction info show/hide
 		$(`#${transactionId}`).on("click", () => {
-			$(`#extra-${transactionId}`).addClass("ml-8").toggle(500);
+			$(`#extra-${transactionId}`)
+				.addClass("ml-8 mt-1 py-1 border-t border-t-gray-400")
+				.toggle(500);
 		});
 
+		// Copy transaction id
 		$(`#copy-${transactionId}`)
 			.addClass(
-				"cursor-pointer text-ellipsis text-nowrap overflow-x-hidden"
+				"cursor-pointer text-xs text-ellipsis text-nowrap overflow-x-hidden"
 			)
 			.on("click", () => {
 				navigator.clipboard
 					.writeText(transactionId)
-					.then(() => notify.success("Transaction ID Copied!"))
+					.then(() => notify.success("Copied Transaction ID!"))
 					.catch(() => notify.success("Cannot Copy the Text!"));
 			});
 	});
