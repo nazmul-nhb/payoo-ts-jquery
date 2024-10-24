@@ -127,6 +127,11 @@ export class User {
 	 */
 	public addMoney(details: IAddMoneyInput): IUpdateResponse {
 		const { amount, bank, participant } = details;
+
+		if (this.mobile === participant) {
+			return { success: false, message: "Own number not allowed!" };
+		}
+
 		return this.handleTransaction<IAddMoney>(
 			"add-money",
 			amount,
@@ -140,6 +145,11 @@ export class User {
 	 */
 	public cashOut(details: ITransactionInput): IUpdateResponse {
 		const { amount, participant } = details;
+
+		if (this.mobile === participant) {
+			return { success: false, message: "Own number not allowed!" };
+		}
+
 		return this.handleTransaction<ICashOut>(
 			"cash-out",
 			amount,
@@ -153,6 +163,11 @@ export class User {
 	 */
 	public payBill(details: IPayBillInput): IUpdateResponse {
 		const { institute, amount, participant } = details;
+
+		if (this.mobile === participant) {
+			return { success: false, message: "Own number not allowed!" };
+		}
+
 		return this.handleTransaction<IPayBill>(
 			"pay-bill",
 			amount,
@@ -166,6 +181,11 @@ export class User {
 	 */
 	public transferMoney(details: ITransactionInput): IUpdateResponse {
 		const { amount, participant } = details;
+
+		if (this.mobile === participant) {
+			return { success: false, message: "Own number not allowed!" };
+		}
+
 		return this.handleTransaction<ITransfer>(
 			"transfer",
 			amount,
