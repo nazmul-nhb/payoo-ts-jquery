@@ -28,7 +28,7 @@ export const showMenus = (mobile: string): void => {
 
 		if (urlPath) {
 			setActiveSection(activeId, urlPath);
-			document.title = `${title} - Payoo`;
+			updateNotFoundState(`${title} - Payoo`, false);
 		}
 
 		const menuDiv = $("<div></div>");
@@ -68,9 +68,7 @@ export const showMenus = (mobile: string): void => {
 			// Update the url in browser address bar
 			history.pushState(null, "", `/${id}`);
 
-			// Update the document title and hide the not-found message
-			document.title = `${title} - Payoo`;
-			$("#not-found").addClass("hidden").removeClass("flex");
+			updateNotFoundState(`${title} - Payoo`, false);
 		});
 
 		// Check if the menu item exists for the current URL path
