@@ -10,6 +10,9 @@
 
 - **Login & Registration**: Users can register or log in using a simple interface. Data is stored in local storage.
 - **Tab Toggle**: Users can easily switch between login and registration tabs, creating a smooth onboarding experience.
+- **Multiple Account Creation**: Users can register multiple accounts directly from the same browser instance, each uniquely identifiable.
+- **Browser-based Data**: All user data is stored in the browser's local storage. No backend is connected, so data will be lost when the browser is uninstalled or storage is cleared.
+- **Logout Functionality**: The app includes a logout button, allowing users to securely end their sessions, ensuring privacy and flexibility when switching between accounts.
 
 ### Transactions
 
@@ -42,7 +45,7 @@
 - **TypeScript**: Typed JavaScript for robust code.
 - **Vite**: Development environment and Build Tool.
 - **Day.js**: Date and time manipulation.
-- **bcryptjs**: For user password hashing and authentication.
+- **bcryptjs & crypto-browserify**: For secure password hashing and compatibility across environments.
 - **Custom ID Generation**: Utilizing `@nazmul-nhb/id-generator` for unique user IDs.
 - **Browser Local Storage**: For data storage and retrieval of user data and transactions.
 
