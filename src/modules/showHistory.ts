@@ -150,17 +150,20 @@ export const showHistory = (mobile: string): void => {
 		historyContainer.append(transDiv);
 
 		// Toggle between extra transaction info show/hide
-		$(`#${transactionId}`).on("click", () => {
-			$(`#extra-${transactionId}`)
-				.addClass("ml-8 mt-1 py-1 border-t border-t-gray-400")
-				.toggle(500);
-		});
+		$(`#${transactionId}`)
+			.off("click")
+			.on("click", () => {
+				$(`#extra-${transactionId}`)
+					.addClass("ml-8 mt-1 py-1 border-t border-t-gray-400")
+					.toggle(500);
+			});
 
 		// Copy transaction id
 		$(`#copy-${transactionId}`)
 			.addClass(
 				"cursor-pointer text-xs text-ellipsis text-nowrap overflow-x-hidden"
 			)
+			.off("click")
 			.on("click", () => {
 				navigator.clipboard
 					.writeText(transactionId)

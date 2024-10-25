@@ -52,24 +52,26 @@ export const showMenus = (mobile: string): void => {
 		menuContainer.append(menuDiv);
 
 		// Handle click event for the current menu item
-		$(`#menu-${id}`).on("click", () => {
-			// Set the clicked menu and corresponding section as active
-			setActiveSection(activeId, id);
+		$(`#menu-${id}`)
+			.off("click")
+			.on("click", () => {
+				// Set the clicked menu and corresponding section as active
+				setActiveSection(activeId, id);
 
-			$("#menu-contents").show();
+				$("#menu-contents").show();
 
-			// Load fresh history
-			if (id === "transaction-history") {
-				showHistory(mobile);
-			}
+				// Load fresh history
+				if (id === "transaction-history") {
+					showHistory(mobile);
+				}
 
-			activeId = id;
+				activeId = id;
 
-			// Update the url in browser address bar
-			history.pushState(null, "", `/${id}`);
+				// Update the url in browser address bar
+				history.pushState(null, "", `/${id}`);
 
-			updateNotFoundState(`${title} - Payoo`, false);
-		});
+				updateNotFoundState(`${title} - Payoo`, false);
+			});
 
 		// Check if the menu item exists for the current URL path
 		if (id === urlPath) {

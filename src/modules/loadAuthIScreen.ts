@@ -5,19 +5,19 @@ import { toggleButtonState, toggleTabs } from "./tabsToggler";
 
 export const loadAuthScreen = (): void => {
 	// Show Login Form (Tab)
-	$("#login-tab").on("click", () => {
+	$("#login-tab").off("click").on("click", () => {
 		toggleTabs($("#login-form"), $("#register-form"));
 		toggleButtonState($("#login-tab"), $("#register-tab"));
 	});
 
 	// Show Register Form (Tab)
-	$("#register-tab").on("click", () => {
+	$("#register-tab").off("click").on("click", () => {
 		toggleTabs($("#register-form"), $("#login-form"));
 		toggleButtonState($("#register-tab"), $("#login-tab"));
 	});
 
 	// Login button in the form
-	$("#login-btn").on("click", (e) => handleLogin(e));
+	$("#login-btn").off("click").on("click", (e) => handleLogin(e));
 	// Register button in the form
-	$("#register-btn").on("click", (e) => handleRegister(e));
+	$("#register-btn").off("click").on("click", (e) => handleRegister(e));
 };
