@@ -1,7 +1,7 @@
 import type { IMenu } from "../types/interfaces";
 import add from "../assets/icons/add.svg";
-import manage from "../assets/icons/manage.svg";
 import pay from "../assets/icons/pay.svg";
+import coupon from "../assets/icons/coupon.svg";
 import transaction from "../assets/icons/transaction.svg";
 import out from "../assets/icons/out.svg";
 import transfer from "../assets/icons/transfer.svg";
@@ -23,9 +23,9 @@ export const menus: IMenu[] = [
 		image: transfer,
 	},
 	{
-		id: "manage-finance",
-		title: "Manage",
-		image: manage,
+		id: "coupons",
+		title: "Coupons",
+		image: coupon,
 	},
 	{
 		id: "pay-bill",
@@ -39,4 +39,4 @@ export const menus: IMenu[] = [
 	},
 ];
 
-export { add, pay, out, transfer };
+export { add, pay, out, coupon, transfer };

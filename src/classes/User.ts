@@ -201,4 +201,22 @@ export class User {
 			false
 		);
 	}
+
+	/**
+	 * Method to redeem coupon
+	 */
+	public redeemCoupon(details: ITransactionInput): IUpdateResponse {
+		const { amount, participant } = details;
+
+		if (this.mobile === participant) {
+			return { success: false, message: "Own number not allowed!" };
+		}
+
+		return this.handleTransaction<ITransfer>(
+			"transfer",
+			amount,
+			{ account: participant },
+			false
+		);
+	}
 }

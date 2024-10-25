@@ -50,6 +50,11 @@ export interface ITransfer extends ITransaction {
 	account: string;
 }
 
+export interface ICoupon extends ITransaction {
+	account: string;
+	coupon: string;
+}
+
 export interface ITransactionInput {
 	amount: number;
 	participant: string;
@@ -61,6 +66,10 @@ export interface IPayBillInput extends ITransactionInput {
 
 export interface IAddMoneyInput extends ITransactionInput {
 	bank: string;
+}
+
+export interface ICouponInput {
+	coupon: string;
 }
 
 export interface IUpdateResponse {

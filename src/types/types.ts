@@ -8,7 +8,7 @@ import type {
 	ITransactionInput,
 } from "./interfaces";
 
-export type Transactions = "add-money" | "cash-out" | "pay-bill" | "transfer";
+export type Transactions = "add-money" | "cash-out" | "pay-bill" | "transfer" | "coupons";
 export type TransactionDetails = IAddMoney | ICashOut | IPayBill | ITransfer;
 
 export type TransactionInputs =
