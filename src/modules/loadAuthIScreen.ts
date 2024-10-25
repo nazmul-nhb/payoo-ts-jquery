@@ -2,11 +2,8 @@ import $ from "jquery";
 import { handleLogin } from "./loginForm";
 import { handleRegister } from "./registerForm";
 import { toggleButtonState, toggleTabs } from "./tabsToggler";
-import { showLoginScreen } from "./toggleScreens";
 
 export const loadAuthScreen = (): void => {
-    showLoginScreen();
-    
 	// Show Login Form (Tab)
 	$("#login-tab").on("click", () => {
 		toggleTabs($("#login-form"), $("#register-form"));

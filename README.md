@@ -14,6 +14,18 @@
 - **Browser-based Data**: All user data is stored in the browser's local storage. No backend is connected, so data will be lost when the browser is uninstalled or storage is cleared.
 - **Logout Functionality**: The app includes a logout button, allowing users to securely end their sessions, ensuring privacy and flexibility when switching between accounts.
 
+### Loading Spinner
+
+The application features a loading spinner that enhances user experience during login process.
+
+- **Display of Spinner**: Upon clicking the login button, the loading spinner is shown immediately to indicate that the login process has started.
+  
+- **Delay for Feedback**: To ensure that users can see the spinner, a brief delay (set to 500 milliseconds) is introduced before transitioning to the main screen. This allows users to receive immediate visual feedback while the application loads necessary user data.
+
+- **Hiding the Spinner**: The spinner is hidden once the user data loading is complete or if there is no significant delay, providing a seamless transition to the main interface.
+
+This feature helps inform users that their login action is being processed and improves the overall responsiveness of the application.
+
 ### Transactions
 
 - **Transaction Types**: Implemented multiple transaction types, including:

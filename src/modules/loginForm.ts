@@ -62,6 +62,6 @@ export const handleLogin = async (
 
 		return notify.error("An Unknown Error Occurred!");
 	} finally {
-		setIsLoading(false);
+		setTimeout(() => setIsLoading(false), 500);
 	}
 };
