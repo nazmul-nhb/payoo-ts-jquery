@@ -3,6 +3,8 @@ import type {
 	IAddMoney,
 	IAddMoneyInput,
 	ICashOut,
+	ICoupon,
+	ICouponInput,
 	IPayBill,
 	IPayBillInput,
 	ITransactionInput,
@@ -205,18 +207,21 @@ export class User {
 	/**
 	 * Method to redeem coupon
 	 */
-	public redeemCoupon(details: ITransactionInput): IUpdateResponse {
-		const { amount, participant } = details;
+	public redeemCoupon(details: ICouponInput): IUpdateResponse {
+		const { coupon } = details;
+		let amount: number = 0;
 
-		if (this.mobile === participant) {
-			return { success: false, message: "Own number not allowed!" };
+		if (coupon) {
+			amount = 500;
+		} else {
+			return { success: false, message: "Invalid Coupon!" };
 		}
 
-		return this.handleTransaction<ITransfer>(
+		return this.handleTransaction<ICoupon>(
 			"transfer",
 			amount,
-			{ account: participant },
-			false
+			{ account: "Payoo Coupon" },
+			true
 		);
 	}
 }
