@@ -10,6 +10,7 @@ import { showMenus } from "./modules/showMenus";
 import { showBalance } from "./modules/showBalance";
 import { handleTransaction } from "./modules/handleTransaction";
 import type { IAddMoneyInput, IPayBillInput } from "./types/interfaces";
+import { handleCoupons } from "./modules/handleCoupons";
 // import { setIsLoading } from "./modules/showLoading";
 
 $(() => {
@@ -53,6 +54,9 @@ $(() => {
 				user.payBill(details as IPayBillInput)
 			)
 		);
+
+		// Redeem Coupon
+		$("#coupon-btn").on("click", (e) => handleCoupons(e));
 
 		// Button to take home from Error Screen
 		$("#error-handler").on("click", () => {

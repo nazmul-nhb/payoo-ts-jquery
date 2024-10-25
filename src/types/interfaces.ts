@@ -70,9 +70,15 @@ export interface IAddMoneyInput extends ITransactionInput {
 
 export interface ICouponInput {
 	coupon: string;
+	amount: number;
 }
 
 export interface IUpdateResponse {
 	success: boolean;
 	message: string;
+}
+
+export interface ICouponData {
+	name: string;
+	amount: number;
 }

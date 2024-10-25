@@ -261,7 +261,7 @@
 						Redeem Coupon
 					</h3>
 					<form
-						id="transfer-form"
+						id="coupon-form"
 						class="flex flex-col items-center gap-3"
 					>
 						<label class="font-semibold" for="coupon-code"
@@ -273,7 +273,23 @@
 							name="coupon-code"
 							type="text"
 							placeholder="Enter Your Coupon"
+							list="coupon-options"
 						/>
+						<!-- Datalist to provide autocomplete suggestions -->
+						<datalist id="coupon-options">
+							<option value="WELCOME250"></option>
+							<option value="REFER100"></option>
+							<option value="SAVE500"></option>
+							<option value="BONUS1000"></option>
+							<option value="TOPUP200"></option>
+							<option value="CASHBACK100"></option>
+							<option value="PAYBILL50"></option>
+							<option value="DISCOUNT300"></option>
+							<option value="SHOPCASH150"></option>
+							<option value="LOYALTY500"></option>
+							<option value="BOOST250"></option>
+							<option value="TREAT500"></option>
+						</datalist>
 						<button
 							class="text-lg font-bold text-white bg-payoo border-payoo border px-6 py-2 rounded-full hover:text-payoo hover:bg-transparent transition-all duration-500 cursor-pointer"
 							id="coupon-btn"

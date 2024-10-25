@@ -35,7 +35,7 @@ export const handleTransaction = async (
 
 			const isMatched = await matchPIN(pin, user.pin);
 			if (isMatched) {
-				let transactionResult = transactionMethod(details);
+				const transactionResult = transactionMethod(details);
 
 				if (transactionResult.success) {
 					// Clear form fields
@@ -44,6 +44,7 @@ export const handleTransaction = async (
 					const updatedUser = getCurrentUser();
 
 					updatedUser && showBalance(updatedUser.getBalance());
+					
 					return notify.success(transactionResult.message);
 				} else {
 					return notify.error(transactionResult.message);

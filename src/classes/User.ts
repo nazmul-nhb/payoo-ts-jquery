@@ -208,19 +208,12 @@ export class User {
 	 * Method to redeem coupon
 	 */
 	public redeemCoupon(details: ICouponInput): IUpdateResponse {
-		const { coupon } = details;
-		let amount: number = 0;
-
-		if (coupon) {
-			amount = 500;
-		} else {
-			return { success: false, message: "Invalid Coupon!" };
-		}
+		const { coupon, amount } = details;
 
 		return this.handleTransaction<ICoupon>(
-			"transfer",
+			"coupons",
 			amount,
-			{ account: "Payoo Coupon" },
+			{ account: "Payoo Coupon", coupon },
 			true
 		);
 	}
