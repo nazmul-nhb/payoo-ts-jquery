@@ -16,7 +16,7 @@ import {
 	getFromLocalStorage,
 	saveToLocalStorage,
 } from "../utilities/localStorage";
-import { updateUser } from "../utilities/userMethods";
+import { getTransactionDetails, updateUser } from "../utilities/userMethods";
 import { generateTransactionId } from "../utilities/helpers";
 import type { Transactions } from "../types/types";
 
@@ -209,6 +209,16 @@ export class User {
 	 */
 	public redeemCoupon(details: ICouponInput): IUpdateResponse {
 		const { coupon, amount } = details;
+
+		const transactions = getTransactionDetails(this.mobile);
+
+		const couponRedeemed = (transactions as ICoupon[]).find(
+			(transaction) => transaction.coupon === coupon
+		);
+
+		if (couponRedeemed) {
+			return { success: false, message: "Coupon already redeemed!" };
+		}
 
 		return this.handleTransaction<ICoupon>(
 			"coupons",

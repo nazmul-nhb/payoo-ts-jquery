@@ -8,8 +8,6 @@ import { coupons } from "../utilities/coupons";
 export const handleCoupons = (e: JQuery.ClickEvent): NotyfNotification => {
 	e.preventDefault();
 
-	console.log("Coupon");
-
 	try {
 		const user = getCurrentUser();
 
