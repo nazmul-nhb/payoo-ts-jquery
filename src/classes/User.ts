@@ -85,6 +85,10 @@ export class User {
 	): IUpdateResponse {
 		const previousBalance = this.balance;
 
+		if (amount >= 50000) {
+			return { success: false, message: "Limit is 50k per transaction!" };
+		}
+
 		if (!isAdding) {
 			if (this.balance < amount) {
 				return { success: false, message: "Insufficient Balance!" };
@@ -130,6 +134,10 @@ export class User {
 
 		if (this.mobile === participant) {
 			return { success: false, message: "Own number not allowed!" };
+		}
+
+		if (this.balance >= 500000) {
+			return { success: false, message: "Balance limit reached!" };
 		}
 
 		return this.handleTransaction<IAddMoney>(
