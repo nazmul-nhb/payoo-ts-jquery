@@ -1,7 +1,8 @@
 import $ from "jquery";
 import { menus } from "../utilities/menus";
-import { setActiveSection } from "./setActiveSection";
 import { showHistory } from "./showHistory";
+import { setActiveSection } from "./setActiveSection";
+import { updateNotFoundState } from "./handleNotFound";
 
 export const showMenus = (mobile: string): void => {
 	// Load transaction history
@@ -12,7 +13,7 @@ export const showMenus = (mobile: string): void => {
 
 	let activeId: string | null = null;
 
-	// Check if there's an ID in the URL on page load
+	// Check if there's URL on page load
 	const urlPath = window.location.pathname.split("/").pop();
 
 	let menuItemExists = false;
@@ -20,12 +21,6 @@ export const showMenus = (mobile: string): void => {
 	if (urlPath) {
 		activeId = urlPath;
 		setActiveSection(null, activeId);
-	}
-
-	if (urlPath === "") {
-		document.title = "Welcome - Payoo";
-		$("#not-found").addClass("hidden");
-		$("#not-found").removeClass("flex");
 	}
 
 	menus.forEach((menu) => {
@@ -61,6 +56,8 @@ export const showMenus = (mobile: string): void => {
 			// Set the clicked menu and corresponding section as active
 			setActiveSection(activeId, id);
 
+			$("#menu-contents").show();
+
 			// Load fresh history
 			if (id === "transaction-history") {
 				showHistory(mobile);
@@ -73,8 +70,7 @@ export const showMenus = (mobile: string): void => {
 
 			// Update the document title and hide the not-found message
 			document.title = `${title} - Payoo`;
-			$("#not-found").addClass("hidden");
-			$("#not-found").removeClass("flex");
+			$("#not-found").addClass("hidden").removeClass("flex");
 		});
 
 		// Check if the menu item exists for the current URL path
@@ -85,17 +81,20 @@ export const showMenus = (mobile: string): void => {
 		}
 	});
 
-	// Set the document title based on the active menu if urlPath exists
-	if (urlPath) {
+	if (!urlPath) {
+		// Handle the empty path case
+		updateNotFoundState("Welcome - Payoo", false);
+		$("#menu-contents").hide();
+	} else {
+		// Set active section or show error for invalid path
+		activeId = urlPath;
+		setActiveSection(null, activeId);
+
 		if (menuItemExists) {
 			const menuItem = $(`#menu-${urlPath}`);
-			document.title = `${menuItem.text().trim()} - Payoo`;
-			$("#not-found").addClass("hidden");
-			$("#not-found").removeClass("flex");
+			updateNotFoundState(`${menuItem.text()} - Payoo`, false);
 		} else {
-			document.title = "Menu Not Found!";
-			$("#not-found").addClass("flex");
-			$("#not-found").removeClass("hidden");
+			updateNotFoundState("Menu Not Found!", true);
 		}
 	}
 
@@ -103,26 +102,27 @@ export const showMenus = (mobile: string): void => {
 	window.onpopstate = () => {
 		const currentPath = window.location.pathname.split("/").pop();
 
-		if (currentPath) {
+		if (!currentPath) {
+			updateNotFoundState("Welcome - Payoo", false);
+			$("#menu-contents").hide();
+		} else {
 			const currentMenuItem = $(`#menu-${currentPath}`);
+
 			if (currentMenuItem.length) {
 				// Set the active menu and section based on the URL
 				setActiveSection(activeId, currentPath);
 				activeId = currentPath;
+
+				$("#menu-contents").show();
 
 				// Load fresh history
 				if (currentPath === "transaction-history") {
 					showHistory(mobile);
 				}
 
-				// Update the document title
-				document.title = `${currentMenuItem.text().trim()} - Payoo`;
-				$("#not-found").addClass("hidden");
-				$("#not-found").removeClass("flex");
+				updateNotFoundState(`${currentMenuItem.text()} - Payoo`, false);
 			} else {
-				document.title = "Menu Not Found!";
-				$("#not-found").addClass("flex");
-				$("#not-found").removeClass("hidden");
+				updateNotFoundState("Menu Not Found!", true);
 			}
 		}
 	};

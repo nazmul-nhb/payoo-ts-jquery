@@ -11,6 +11,7 @@ import { showBalance } from "./modules/showBalance";
 import { handleTransaction } from "./modules/handleTransaction";
 import type { IAddMoneyInput, IPayBillInput } from "./types/interfaces";
 import { handleCoupons } from "./modules/handleCoupons";
+import { updateNotFoundState } from "./modules/handleNotFound";
 // import { setIsLoading } from "./modules/showLoading";
 
 $(() => {
@@ -61,8 +62,8 @@ $(() => {
 		// Button to take home from Error Screen
 		$("#error-handler").on("click", () => {
 			history.pushState(null, "", "/");
-			$("#not-found").addClass("hidden");
-			$("#not-found").removeClass("flex");
+			updateNotFoundState("Welcome - Payoo", false);
+			showMenus(user.mobile);
 		});
 	} else {
 		showLoginScreen();
