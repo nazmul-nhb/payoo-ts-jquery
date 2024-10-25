@@ -1,42 +1,42 @@
 import type { IMenu } from "../types/interfaces";
-import add from "../assets/icons/add.svg";
-import pay from "../assets/icons/pay.svg";
-import coupon from "../assets/icons/coupon.svg";
-import transaction from "../assets/icons/transaction.svg";
-import out from "../assets/icons/out.svg";
-import transfer from "../assets/icons/transfer.svg";
+import addImage from "../assets/icons/add.svg";
+import payImage from "../assets/icons/pay.svg";
+import outImage from "../assets/icons/out.svg";
+import couponImage from "../assets/icons/coupon.svg";
+import transferImage from "../assets/icons/transfer.svg";
+import transactionImage from "../assets/icons/transaction.svg";
 
 export const menus: IMenu[] = [
 	{
 		id: "add-money",
 		title: "Add Money",
-		image: add,
+		image: addImage,
 	},
 	{
 		id: "cash-out",
 		title: "CashOut",
-		image: out,
+		image: outImage,
 	},
 	{
 		id: "transfer-money",
 		title: "Transfer",
-		image: transfer,
+		image: transferImage,
 	},
 	{
 		id: "coupons",
 		title: "Coupons",
-		image: coupon,
+		image: couponImage,
 	},
 	{
 		id: "pay-bill",
 		title: "Pay Bill",
-		image: pay,
+		image: payImage,
 	},
 	{
 		id: "transaction-history",
 		title: "History",
-		image: transaction,
+		image: transactionImage,
 	},
 ];
 
-export { add, pay, out, coupon, transfer };
+export { addImage, payImage, outImage, couponImage, transferImage };

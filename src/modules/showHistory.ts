@@ -1,7 +1,19 @@
 import $ from "jquery";
 import { getTransactionDetails } from "../utilities/userMethods";
-import { IAddMoney, ICashOut, IPayBill, ITransfer } from "../types/interfaces";
-import { add, out, pay, transfer } from "../utilities/menus";
+import type {
+	IAddMoney,
+	ICashOut,
+	ICoupon,
+	IPayBill,
+	ITransfer,
+} from "../types/interfaces";
+import {
+	addImage,
+	couponImage,
+	outImage,
+	payImage,
+	transferImage,
+} from "../utilities/menus";
 import { formatDateTime } from "../utilities/formatDate";
 import { notify } from "../utilities/notify";
 import { createTransactionHtml } from "./transactionCard";
@@ -53,7 +65,7 @@ export const showHistory = (mobile: string): void => {
 		// Add logic for different transaction types
 		if (transactionType === "add-money") {
 			const { source } = transaction as IAddMoney;
-			imageSrc = add;
+			imageSrc = addImage;
 			header = `
 					<h3 class="font-semibold">
                         <i class="fa-solid fa-piggy-bank"></i> ${source.bank}
@@ -65,7 +77,7 @@ export const showHistory = (mobile: string): void => {
 						</h3>`;
 		} else if (transactionType === "pay-bill") {
 			const { source } = transaction as IPayBill;
-			imageSrc = pay;
+			imageSrc = payImage;
 			header = `
 					<h3 class="font-semibold">
                         <i class="fa-solid fa-building-columns"></i> ${source.institute}
@@ -77,7 +89,7 @@ export const showHistory = (mobile: string): void => {
 						</h3>`;
 		} else if (transactionType === "cash-out") {
 			const { agent } = transaction as ICashOut;
-			imageSrc = out;
+			imageSrc = outImage;
 			header = `
 					<h3 class="font-semibold">
                         <i class="fa-solid fa-mobile-retro"></i> ${agent}
@@ -89,7 +101,7 @@ export const showHistory = (mobile: string): void => {
 						</h3>`;
 		} else if (transactionType === "transfer") {
 			const { account } = transaction as ITransfer;
-			imageSrc = transfer;
+			imageSrc = transferImage;
 			header = `
 					<h3 class="font-semibold">
                         <i class="fa-solid fa-mobile-screen"></i> ${account}
@@ -98,6 +110,18 @@ export const showHistory = (mobile: string): void => {
 			extraInfo = `<h3>
 							<i class="fa-solid fa-circle-dollar-to-slot"></i>
 							To: ${account}
+						</h3>`;
+		} else if (transactionType === "coupons") {
+			const { account, coupon } = transaction as ICoupon;
+			imageSrc = couponImage;
+			header = `
+					<h3 class="font-semibold">
+                        <i class="fa-brands fa-paypal"></i> ${account}
+                    </h3>`;
+			title = "Coupon";
+			extraInfo = `<h3>
+							<i class="fa-solid fa-gift"></i>
+							Coupon: ${coupon}
 						</h3>`;
 		}
 
