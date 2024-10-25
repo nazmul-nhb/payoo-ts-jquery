@@ -43,8 +43,10 @@
 - **jQuery**: DOM manipulation.
 - **FontAwesome**: Iconography.
 - **TypeScript**: Typed JavaScript for robust code.
+- **OOP Design**: Key functionalities are structured with object-oriented principles, especially within the `User` class, improving modularity and scalability.
 - **Vite**: Development environment and Build Tool.
 - **Day.js**: Date and time manipulation.
+- **Notyf**: For displaying toast notifications to enhance user experience.
 - **bcryptjs & crypto-browserify**: For secure password hashing and compatibility across environments.
 - **Custom ID Generation**: Utilizing `@nazmul-nhb/id-generator` for unique user IDs.
 - **Browser Local Storage**: For data storage and retrieval of user data and transactions.
