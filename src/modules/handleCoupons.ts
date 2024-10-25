@@ -30,7 +30,7 @@ export const handleCoupons = (e: JQuery.ClickEvent): NotyfNotification => {
 			});
 
 			if (result.success) {
-				$("form input").val("");
+				$("#coupon-form input").val("");
 
 				const updatedUser = getCurrentUser();
 

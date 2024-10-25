@@ -1,6 +1,6 @@
 import { User } from "../classes/User";
+import type { TransactionDetails } from "../types/types";
 import type { IUpdateResponse, IUser } from "../types/interfaces";
-import { TransactionDetails } from "../types/types";
 import { getTimeStamp } from "./formatDate";
 import { getFromLocalStorage } from "./localStorage";
 import { notify } from "./notify";
@@ -34,15 +34,6 @@ export const getCurrentUser = (): User | null => {
 		}
 		return null;
 	}
-};
-
-export const setCurrentUser = (mobile: string): void => {
-	localStorage.setItem("payooUser", JSON.stringify(mobile));
-};
-
-export const logOut = (): void => {
-	localStorage.removeItem("payooUser");
-	notify.success("Successfully Logged Out!");
 };
 
 export const updateUser = (

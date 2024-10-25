@@ -4,10 +4,12 @@ export const setIsLoading = (isLoading: boolean) => {
 	if (isLoading) {
 		$("#unregistered").hide();
 		$("#registered").hide();
-		$("#loading-spinner").toggleClass("flex hidden");
+		$("#main").addClass("flex items-center justify-center");
+		$("#loading-spinner").show();
 	} else {
 		$("#registered").show();
 		$("#unregistered").show();
-		$("#loading-spinner").toggleClass("hidden flex");
+		$("#main").removeClass("flex items-center justify-center");
+		$("#loading-spinner").hide();
 	}
 };

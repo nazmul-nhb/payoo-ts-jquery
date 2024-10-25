@@ -1,10 +1,10 @@
 import $ from "jquery";
 import { notify } from "../utilities/notify";
 import { matchPIN } from "../utilities/hashingUtils";
-import { findUser, setCurrentUser } from "../utilities/userMethods";
+import { findUser } from "../utilities/userMethods";
 import { NotyfNotification } from "notyf";
-import { showMainScreen } from "./toggleScreens";
-import { showBalance } from "./showBalance";
+import { setIsLoading } from "./showLoading";
+import { loadUserFunctionalities } from "./loadFunctionalities";
 
 export const handleLogin = async (
 	e: JQuery.ClickEvent
@@ -35,6 +35,8 @@ export const handleLogin = async (
 	}
 
 	try {
+		setIsLoading(true);
+
 		const user = findUser(mobile);
 
 		const isMatched = await matchPIN(pin, user.pin);
@@ -44,11 +46,10 @@ export const handleLogin = async (
 			$("#login-form input").val("");
 
 			// Set logged in user as current user and save in localStorage
-			setCurrentUser(user.mobile);
+			user.setCurrentUser();
 
-			// Hide login/register screen & Show main screen
-			showMainScreen();
-			showBalance(user.getBalance());
+			// Load all user related UI and functionalities
+			loadUserFunctionalities(user);
 
 			return notify.success("Successfully Logged In!");
 		}
@@ -60,5 +61,7 @@ export const handleLogin = async (
 		}
 
 		return notify.error("An Unknown Error Occurred!");
+	} finally {
+		setIsLoading(false);
 	}
 };

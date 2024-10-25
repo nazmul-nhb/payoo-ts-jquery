@@ -76,6 +76,7 @@ export const showMenus = (mobile: string): void => {
 			menuItemExists = true;
 			activeId = urlPath; // Set activeId to the existing menu item
 			setActiveSection(null, activeId); // Set the menu & section active
+			updateNotFoundState(`${title} - Payoo`, false);
 		}
 	});
 

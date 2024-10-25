@@ -56,6 +56,20 @@ export class User {
 	}
 
 	/**
+	 * Set current user to local storage
+	 */
+	public setCurrentUser(): void {
+		localStorage.setItem("payooUser", JSON.stringify(this.mobile));
+	}
+
+	/**
+	 * Method to log out the user
+	 */
+	public logOut(): void {
+		localStorage.removeItem("payooUser");
+	}
+
+	/**
 	 * Hydrate user from localStorage
 	 */
 	static hydrate(user: IUser): User {
