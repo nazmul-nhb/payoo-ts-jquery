@@ -17,6 +17,7 @@ import {
 import { formatDateTime } from "../utilities/formatDate";
 import { notify } from "../utilities/notify";
 import { createTransactionHtml } from "./transactionCard";
+import { getColorForFirstCharacter } from "color-generator-fl";
 
 export const showHistory = (mobile: string): void => {
 	const historyContainer = $("#transaction-history-section");
@@ -54,6 +55,21 @@ export const showHistory = (mobile: string): void => {
 			transactionTime,
 			transactionType,
 		} = transaction;
+
+		const shadowColor = getColorForFirstCharacter(
+			transactionType,
+			75
+		) as string;
+
+		const bgColorLow = getColorForFirstCharacter(
+			transactionType,
+			8
+		) as string;
+
+		const bgColorHigh = getColorForFirstCharacter(
+			transactionType,
+			16
+		) as string;
 
 		const transDiv = $("<div></div>");
 
@@ -142,12 +158,19 @@ export const showHistory = (mobile: string): void => {
 		transDiv.html(transactionHtml);
 
 		// Add styles to the wrapper div
-		transDiv.addClass(
-			"border border-gray-500 rounded-lg shadow-md shadow-gray-500 px-2 py-1"
-		);
+		transDiv
+			.addClass(
+				`border rounded-lg shadow-md px-2 py-1 transition-all duration-500`
+			)
+			.css({
+				boxShadow: `0 4px 6px -1px ${shadowColor}, 0 2px 4px -1px ${shadowColor}`,
+				backgroundColor: bgColorLow,
+			});
 
 		// Append all transactions one by one in the history container
 		historyContainer.append(transDiv);
+
+		let isBgColorLow = true;
 
 		// Toggle between extra transaction info show/hide
 		$(`#${transactionId}`)
@@ -156,6 +179,15 @@ export const showHistory = (mobile: string): void => {
 				$(`#extra-${transactionId}`)
 					.addClass("ml-8 mt-1 py-1 border-t border-t-gray-400")
 					.toggle(500);
+
+				// Toggle background color based on flag
+				transDiv.css(
+					"background-color",
+					isBgColorLow ? bgColorHigh : bgColorLow
+				);
+
+				// Flip the flag for next toggle
+				isBgColorLow = !isBgColorLow;
 			});
 
 		// Copy transaction id

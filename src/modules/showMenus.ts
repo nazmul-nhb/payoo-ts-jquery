@@ -32,12 +32,13 @@ export const showMenus = (mobile: string): void => {
 		}
 
 		const menuDiv = $("<div></div>");
+
 		menuDiv.html(
 			/*html*/
 			`
             <figure
                 id="menu-${id}"
-                class="flex flex-col items-center gap-2 cursor-pointer border border-payoo/75 md:px-4 p-2 rounded-lg font-semibold hover:bg-payoo/20 transition-all duration-500 bg-payoo/5 text-payoo"
+                class="flex flex-col items-center gap-2 cursor-pointer border shadow-md shadow-payoo/80 md:px-4 p-2 rounded-lg font-semibold hover:bg-payoo/75 hover:text-white transition-all duration-500 bg-payoo/5 text-payoo"
             >
                 <img
                     class="flex-grow"

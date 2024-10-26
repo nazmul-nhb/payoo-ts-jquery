@@ -14,7 +14,7 @@ export const menus: IMenu[] = [
 	},
 	{
 		id: "cash-out",
-		title: "CashOut",
+		title: "Cash Out",
 		image: outImage,
 	},
 	{
