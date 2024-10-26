@@ -61,6 +61,7 @@ This feature helps inform users that their login action is being processed and i
 - **Notyf**: For displaying toast notifications to enhance user experience.
 - **bcryptjs & crypto-browserify**: For secure password hashing and compatibility across environments.
 - **Custom ID Generation**: Utilizing `@nazmul-nhb/id-generator` for unique user IDs.
+- **Dynamic Color**: Utilizing `color-generator-fl` for dynamic shadow and background colors in transaction history based on types.
 - **Browser Local Storage**: For data storage and retrieval of user data and transactions.
 
 ## Setup and Installation
