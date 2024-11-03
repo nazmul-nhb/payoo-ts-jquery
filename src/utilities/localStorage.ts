@@ -1,15 +1,23 @@
+/**
+ * 
+ * @param key - Key to get item/items from local storage
+ * @returns Returns and array of saved items from local storage with that key
+ */
 export const getFromLocalStorage = <T>(key: string): T[] => {
 	const item = localStorage.getItem(key);
 
 	return JSON.parse(item || "[]") as T[];
 };
 
+/**
+ * 
+ * @param key - Key to save an item/items
+ * @param value - The item/value to save
+ */
 export const saveToLocalStorage = <T>(key: string, value: T): void => {
 	const item = getFromLocalStorage<T>(key);
 
-	item.push(value);
+	const updatedItem = [...item, value];
 
-	const updatedItem = JSON.stringify(item);
-
-	localStorage.setItem(key, updatedItem);
+	localStorage.setItem(key, JSON.stringify(updatedItem));
 };
