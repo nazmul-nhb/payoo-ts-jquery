@@ -29,11 +29,11 @@ This feature helps inform users that their login action is being processed and i
 ### Transactions
 
 - **Transaction Types**: Implemented multiple transaction types, including:
-  - Add Money
-  - Cash Out
-  - Money Transfers
-  - Coupon Redemptions
-  - Bill Payments
+    - Add Money
+    - Cash Out
+    - Money Transfers
+    - Coupon Redemptions
+    - Bill Payments
 - **Transaction History**: All transactions are saved in local storage and displayed on a dedicated history page, providing users with clear and organized transaction records.
 - **Coupon Redemption**: Users can redeem unique coupons for rewards directly through the app.
 

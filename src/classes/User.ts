@@ -26,16 +26,16 @@ import type { Transactions } from "../types/types";
 export class User {
 	constructor(
 		public name: string,
-		public mobile: string,
+		public readonly mobile: string,
 		public pin: string,
-		private balance: number = 5000,
-		public id: string = generateID({
+		private _balance: number = 5000,
+		public readonly id: string = generateID({
 			prefix: "payoo",
 			length: 8,
 			separator: "",
 			caseOption: "upper",
 		}),
-		public creationTime: Date = new Date()
+		public readonly creationTime: Date = new Date()
 	) {}
 
 	/**
@@ -87,35 +87,35 @@ export class User {
 	 * Get user's current balance
 	 */
 	public getBalance(): number {
-		return this.balance;
+		return this._balance;
 	}
 
 	/**
 	 * Handle different types of transactions
 	 */
-	private handleTransaction<Transaction>(
+	private _handleTransaction<T>(
 		type: Transactions,
 		amount: number,
-		extraDetails: Partial<Transaction>,
+		extraDetails: Partial<T>,
 		isAdding: boolean
 	): IUpdateResponse {
-		const previousBalance = this.balance;
+		const previousBalance = this._balance;
 
 		if (amount >= 50000) {
 			return { success: false, message: "Limit is 50k per transaction!" };
 		}
 
 		if (!isAdding) {
-			if (this.balance < amount) {
+			if (this._balance < amount) {
 				return { success: false, message: "Insufficient Balance!" };
 			}
-			this.balance -= amount;
+			this._balance -= amount;
 		} else {
-			this.balance += amount;
+			this._balance += amount;
 		}
 
 		// Update user in local storage
-		const updated = updateUser(this.mobile, { balance: this.balance });
+		const updated = updateUser(this.mobile, { balance: this._balance });
 
 		if (updated.success) {
 			// Generate common transaction details
@@ -124,16 +124,16 @@ export class User {
 				userNumber: this.mobile,
 				amount,
 				previousBalance,
-				currentBalance: this.balance,
+				currentBalance: this._balance,
 				transactionType: type,
 				transactionTime: new Date(),
 				...extraDetails,
 			};
 
 			// Save transaction to localStorage
-			saveToLocalStorage<Transaction>(
+			saveToLocalStorage<T>(
 				"transactions",
-				transactionDetails as Transaction
+				transactionDetails as T
 			);
 
 			return { success: true, message: "Transaction Successful!" };
@@ -152,11 +152,11 @@ export class User {
 			return { success: false, message: "Own number not allowed!" };
 		}
 
-		if (this.balance >= 500000) {
+		if (this._balance >= 500000) {
 			return { success: false, message: "Balance limit reached!" };
 		}
 
-		return this.handleTransaction<IAddMoney>(
+		return this._handleTransaction<IAddMoney>(
 			"add-money",
 			amount,
 			{ source: { bank, account: participant } },
@@ -174,7 +174,7 @@ export class User {
 			return { success: false, message: "Own number not allowed!" };
 		}
 
-		return this.handleTransaction<ICashOut>(
+		return this._handleTransaction<ICashOut>(
 			"cash-out",
 			amount,
 			{ agent: participant },
@@ -192,7 +192,7 @@ export class User {
 			return { success: false, message: "Own number not allowed!" };
 		}
 
-		return this.handleTransaction<IPayBill>(
+		return this._handleTransaction<IPayBill>(
 			"pay-bill",
 			amount,
 			{ source: { institute, account: participant } },
@@ -210,7 +210,7 @@ export class User {
 			return { success: false, message: "Own number not allowed!" };
 		}
 
-		return this.handleTransaction<ITransfer>(
+		return this._handleTransaction<ITransfer>(
 			"transfer",
 			amount,
 			{ account: participant },
@@ -234,7 +234,7 @@ export class User {
 			return { success: false, message: "Coupon already redeemed!" };
 		}
 
-		return this.handleTransaction<ICoupon>(
+		return this._handleTransaction<ICoupon>(
 			"coupons",
 			amount,
 			{ account: "Payoo Coupon", coupon },
