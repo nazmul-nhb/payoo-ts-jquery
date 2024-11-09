@@ -34,8 +34,8 @@ export const handleCoupons = (e: JQuery.ClickEvent): NotyfNotification => {
 
 				const updatedUser = getCurrentUser();
 
-                updatedUser && showBalance(updatedUser.getBalance());
-                
+				updatedUser && showBalance(updatedUser.balance);
+
 				return notify.success(`Redeemed $${selectedCoupon.amount}!`);
 			} else {
 				return notify.error(result.message);

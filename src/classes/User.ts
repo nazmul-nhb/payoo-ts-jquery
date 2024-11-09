@@ -86,7 +86,7 @@ export class User {
 	/**
 	 * Get user's current balance
 	 */
-	public getBalance(): number {
+	get balance(): number {
 		return this._balance;
 	}
 

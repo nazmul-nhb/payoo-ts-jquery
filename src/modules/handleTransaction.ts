@@ -43,8 +43,8 @@ export const handleTransaction = async (
 
 					const updatedUser = getCurrentUser();
 
-					updatedUser && showBalance(updatedUser.getBalance());
-					
+					updatedUser && showBalance(updatedUser.balance);
+
 					return notify.success(transactionResult.message);
 				} else {
 					return notify.error(transactionResult.message);
