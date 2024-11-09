@@ -25,9 +25,9 @@ import type { Transactions } from "../types/types";
  */
 export class User {
 	constructor(
-		public name: string,
+		public readonly name: string,
 		public readonly mobile: string,
-		public pin: string,
+		public readonly pin: string,
 		private _balance: number = 5000,
 		public readonly id: string = generateID({
 			prefix: "payoo",
@@ -131,10 +131,7 @@ export class User {
 			};
 
 			// Save transaction to localStorage
-			saveToLocalStorage<T>(
-				"transactions",
-				transactionDetails as T
-			);
+			saveToLocalStorage<T>("transactions", transactionDetails as T);
 
 			return { success: true, message: "Transaction Successful!" };
 		}

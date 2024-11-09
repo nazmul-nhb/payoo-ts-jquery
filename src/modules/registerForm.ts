@@ -44,7 +44,6 @@ export const handleRegister = async (
 		const user = new User(name, mobile, hashedPIN);
 
 		try {
-			user
 			const result = user.save();
 
 			if (result.insertedId) {
