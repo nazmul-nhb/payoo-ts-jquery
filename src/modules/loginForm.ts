@@ -1,14 +1,15 @@
 import $ from "jquery";
 import { notify } from "../utilities/notify";
-import { matchPIN } from "../utilities/hashingUtils";
+import { verifyPIN } from "../utilities/hashingUtils";
 import { findUser } from "../utilities/userMethods";
-import { NotyfNotification } from "notyf";
 import { setIsLoading } from "./showLoading";
 import { loadUserFunctionalities } from "./loadFunctionalities";
 
-export const handleLogin = async (
-	e: JQuery.ClickEvent
-): Promise<NotyfNotification> => {
+/**
+ * Handle user login.
+ * @param e Click event.
+ */
+export const handleLogin = async (e: JQuery.ClickEvent) => {
 	e.preventDefault();
 
 	const mobile = $("#mobile").val() as string;
@@ -39,28 +40,34 @@ export const handleLogin = async (
 
 		const user = findUser(mobile);
 
-		const isMatched = await matchPIN(pin, user.pin);
-
-		if (isMatched) {
-			// Clear the input field
-			$("#login-form input").val("");
-
-			// Set logged in user as current user and save in localStorage
-			user.setCurrentUser();
-
-			// Load all user related UI and functionalities
-			loadUserFunctionalities(user);
-
-			return notify.success("Successfully Logged In!");
+		if (!user) {
+			throw new Error("Invalid Credentials!");
 		}
 
-		return notify.error("Wrong PIN!");
+		const isMatched = await verifyPIN(pin, user.pin);
+
+		if (!isMatched) {
+			throw new Error("Invalid Credentials!");
+		}
+
+		// Clear the input field
+		$("#login-form input").val("");
+
+		// Set logged in user as current user and save in localStorage
+		user.setCurrentUser();
+
+		// Load all user related UI and functionalities
+		loadUserFunctionalities(user);
+
+		return notify.success("Successfully Logged In!");
 	} catch (error) {
-		if (error instanceof Error) {
-			return notify.error(error.message);
-		}
-
-		return notify.error("An Unknown Error Occurred!");
+		setTimeout(() => {
+			if (error instanceof Error) {
+				notify.error(error.message);
+			} else {
+				notify.error("An Unknown Error Occurred!");
+			}
+		}, 500);
 	} finally {
 		setTimeout(() => setIsLoading(false), 500);
 	}

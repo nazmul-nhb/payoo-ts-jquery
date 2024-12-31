@@ -1,7 +1,7 @@
 import $ from "jquery";
 import { notify } from "../utilities/notify";
 import type { NotyfNotification } from "notyf";
-import { matchPIN } from "../utilities/hashingUtils";
+import { verifyPIN } from "../utilities/hashingUtils";
 import { getCurrentUser } from "../utilities/userMethods";
 import { showBalance } from "../modules/showBalance";
 import type { IUpdateResponse } from "../types/interfaces";
@@ -33,7 +33,7 @@ export const handleTransaction = async (
 		if ("pin" in detailsResult && "details" in detailsResult) {
 			const { pin, details } = detailsResult;
 
-			const isMatched = await matchPIN(pin, user.pin);
+			const isMatched = await verifyPIN(pin, user.pin);
 			if (isMatched) {
 				const transactionResult = transactionMethod(details);
 

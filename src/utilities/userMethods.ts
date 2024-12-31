@@ -5,18 +5,27 @@ import { getTimeStamp } from "./formatDate";
 import { getFromLocalStorage } from "./localStorage";
 import { notify } from "./notify";
 
-export const findUser = (mobile: string): User => {
+/**
+ * Find user from local storage based on mobile number.
+ * @param mobile User's mobile number as `string`.
+ * @returns `User` instance of user or nothing if found none.
+ */
+export const findUser = (mobile: string): User | null => {
 	const users = getFromLocalStorage<IUser>("users");
 
 	const user = users.find((savedUser) => savedUser.mobile === mobile);
 
 	if (!user) {
-		throw new Error("User Not Found!");
+		return null;
 	}
 
 	return User.hydrate(user);
 };
 
+/**
+ * Get current logged in user from local storage.
+ * @returns Current logged in user or nothing if found none.
+ */
 export const getCurrentUser = (): User | null => {
 	const mobile = localStorage.getItem("payooUser");
 
@@ -36,6 +45,12 @@ export const getCurrentUser = (): User | null => {
 	}
 };
 
+/**
+ * Update user's property in local storage.
+ * @param mobile User's mobile number as string.
+ * @param user Property of `User` to update.
+ * @returns Success boolean flag and a message.
+ */
 export const updateUser = (
 	mobile: string,
 	user: Partial<IUser>
@@ -59,6 +74,11 @@ export const updateUser = (
 	return { success: true, message: "Successfully Updated!" };
 };
 
+/**
+ * Get user's transaction details (history) from local storage.
+ * @param mobile User's mobile number as string.
+ * @returns Transaction details.
+ */
 export const getTransactionDetails = (mobile: string): TransactionDetails[] => {
 	const transaction = getFromLocalStorage<TransactionDetails>("transactions");
 
