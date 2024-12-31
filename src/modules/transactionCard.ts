@@ -1,3 +1,4 @@
+/** Generate html for transaction card */
 export const createTransactionHtml = (
 	transactionId: string,
 	imageSrc: string,

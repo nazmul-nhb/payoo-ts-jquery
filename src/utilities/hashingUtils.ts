@@ -11,7 +11,7 @@ export const hashPIN = async (pin: string): Promise<string | null> => {
 	}
 };
 
-/** Match PIN with the stored PIN and returns a boolean */
+/** Verify PIN with the stored PIN and returns a boolean */
 export const verifyPIN = async (
 	pin: string,
 	storedPIN: string

@@ -5,6 +5,10 @@ import { getCurrentUser } from "../utilities/userMethods";
 import { showBalance } from "./showBalance";
 import { coupons } from "../utilities/coupons";
 
+/**
+ * Handle coupon selection.
+ * @param e Click event.
+ */
 export const handleCoupons = (e: JQuery.ClickEvent): NotyfNotification => {
 	e.preventDefault();
 
@@ -46,6 +50,7 @@ export const handleCoupons = (e: JQuery.ClickEvent): NotyfNotification => {
 		if (error instanceof Error) {
 			return notify.error(error.message);
 		}
+
 		return notify.error("Something went wrong!");
 	}
 };

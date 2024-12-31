@@ -19,6 +19,10 @@ import { notify } from "../utilities/notify";
 import { createTransactionHtml } from "./transactionCard";
 import { getColorForFirstCharacter } from "color-generator-fl";
 
+/**
+ * Show transaction history.
+ * @param mobile User's mobile number as string.
+ */
 export const showHistory = (mobile: string): void => {
 	const historyContainer = $("#transaction-history-section");
 	historyContainer.html("");

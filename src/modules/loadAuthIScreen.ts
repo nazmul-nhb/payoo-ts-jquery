@@ -3,6 +3,7 @@ import { handleLogin } from "./loginForm";
 import { handleRegister } from "./registerForm";
 import { toggleButtonState, toggleTabs } from "./tabsToggler";
 
+/** Load login/register screen */
 export const loadAuthScreen = (): void => {
 	// Show Login Form (Tab)
 	$("#login-tab").off("click").on("click", () => {

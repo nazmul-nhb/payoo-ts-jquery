@@ -7,18 +7,38 @@ dayjs.extend(isToday);
 dayjs.extend(isYesterday);
 dayjs.extend(relativeTime);
 
+/**
+ * Format only date.
+ * @param date Date to format, either `Date` or `string` type.
+ * @returns Formatted date.
+ */
 export const formatDateOnly = (date: string | Date): string => {
 	return dayjs(date).format("dddd, MMMM DD, YYYY");
 };
 
+/**
+ * Format only time.
+ * @param date Date to format, either `Date` or `string` type.
+ * @returns Formatted time.
+ */
 export const formatTimeOnly = (date: string | Date): string => {
 	return dayjs(date).format("hh:mm:ssa");
 };
 
+/**
+ * Get time stamp from date.
+ * @param date Date to get time stamp from, either `Date` or `string` type.
+ * @returns Time stamp in unix format.
+ */
 export const getTimeStamp = (date: string | Date): number => {
 	return dayjs(date).unix();
 };
 
+/**
+ * Format both date and time.
+ * @param date Date to format, either `Date` or `string` type.
+ * @returns Formatted date and time.
+ */
 export const formatDateTime = (date: string | Date): string => {
 	const now = dayjs();
 	const inputDate = dayjs(date);

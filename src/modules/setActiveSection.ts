@@ -1,5 +1,10 @@
 import $ from "jquery";
 
+/**
+ * Set active section to display on main screen.
+ * @param toHide Section to hide.
+ * @param toShow Section to show.
+ */
 export const setActiveSection = (
 	toHide: string | null,
 	toShow: string

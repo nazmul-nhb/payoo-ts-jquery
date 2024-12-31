@@ -1,5 +1,5 @@
 /**
- * 
+ * Get item(s) from local storage.
  * @param key - Key to get item/items from local storage
  * @returns Returns and array of saved items from local storage with that key
  */
@@ -10,7 +10,7 @@ export const getFromLocalStorage = <T>(key: string): T[] => {
 };
 
 /**
- * 
+ * Save item(s) in local storage.
  * @param key - Key to save an item/items
  * @param value - The item/value to save
  */

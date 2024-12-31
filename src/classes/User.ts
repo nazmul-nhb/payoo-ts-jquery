@@ -20,9 +20,7 @@ import { getTransactionDetails, updateUser } from "../utilities/userMethods";
 import { generateTransactionId } from "../utilities/helpers";
 import type { Transactions } from "../types/types";
 
-/**
- * Create an instance of User
- */
+/** Create an instance of User */
 export class User {
 	constructor(
 		public readonly name: string,
@@ -38,9 +36,7 @@ export class User {
 		public readonly creationTime: Date = new Date()
 	) {}
 
-	/**
-	 * Save user to localStorage
-	 */
+	/** Save user to localStorage */
 	public save(): { insertedId: string } {
 		const users = getFromLocalStorage<User>("users");
 
@@ -55,23 +51,17 @@ export class User {
 		return { insertedId: this.id };
 	}
 
-	/**
-	 * Set current user to local storage
-	 */
+	/** Set current user to local storage */
 	public setCurrentUser(): void {
 		localStorage.setItem("payooUser", JSON.stringify(this.mobile));
 	}
 
-	/**
-	 * Method to log out the user
-	 */
+	/** Method to log out the user */
 	public logOut(): void {
 		localStorage.removeItem("payooUser");
 	}
 
-	/**
-	 * Hydrate user from localStorage
-	 */
+	/** Hydrate user from localStorage */
 	static hydrate(user: IUser): User {
 		return new User(
 			user.name,
@@ -83,16 +73,12 @@ export class User {
 		);
 	}
 
-	/**
-	 * Get user's current balance
-	 */
+	/** Get user's current balance */
 	get balance(): number {
 		return this._balance;
 	}
 
-	/**
-	 * Handle different types of transactions
-	 */
+	/** Handle different types of transactions */
 	private _handleTransaction<T>(
 		type: Transactions,
 		amount: number,
@@ -139,9 +125,7 @@ export class User {
 		return { success: false, message: "Something Went Wrong!" };
 	}
 
-	/**
-	 * Method to add money
-	 */
+	/** Method to add money */
 	public addMoney(details: IAddMoneyInput): IUpdateResponse {
 		const { amount, bank, participant } = details;
 
@@ -161,9 +145,7 @@ export class User {
 		);
 	}
 
-	/**
-	 * Method to cash out money
-	 */
+	/** Method to cash out money */
 	public cashOut(details: ITransactionInput): IUpdateResponse {
 		const { amount, participant } = details;
 
@@ -179,9 +161,7 @@ export class User {
 		);
 	}
 
-	/**
-	 * Method to pay bill
-	 */
+	/** Method to pay bill */
 	public payBill(details: IPayBillInput): IUpdateResponse {
 		const { institute, amount, participant } = details;
 
@@ -197,9 +177,7 @@ export class User {
 		);
 	}
 
-	/**
-	 * Method to transfer money
-	 */
+	/** Method to transfer money */
 	public transferMoney(details: ITransactionInput): IUpdateResponse {
 		const { amount, participant } = details;
 
@@ -215,9 +193,7 @@ export class User {
 		);
 	}
 
-	/**
-	 * Method to redeem coupon
-	 */
+	/** Method to redeem coupon */
 	public redeemCoupon(details: ICouponInput): IUpdateResponse {
 		const { coupon, amount } = details;
 

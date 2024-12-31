@@ -1,13 +1,15 @@
 import $ from "jquery";
 import { User } from "../classes/User";
 import { notify } from "../utilities/notify";
-import type { NotyfNotification } from "notyf";
 import { hashPIN } from "../utilities/hashingUtils";
 import { toggleButtonState, toggleTabs } from "./tabsToggler";
+import { setIsLoading } from "./showLoading";
 
-export const handleRegister = async (
-	e: JQuery.ClickEvent
-): Promise<NotyfNotification> => {
+/**
+ * Handle user registration.
+ * @param e Click event.
+ */
+export const handleRegister = async (e: JQuery.ClickEvent) => {
 	e.preventDefault();
 
 	const name = $("#name").val() as string;
@@ -38,32 +40,39 @@ export const handleRegister = async (
 		return notify.error("PIN Must Be 4 Digits!");
 	}
 
-	const hashedPIN = await hashPIN(pin);
+	try {
+		setIsLoading(true);
 
-	if (hashedPIN) {
-		const user = new User(name, mobile, hashedPIN);
+		const hashedPIN = await hashPIN(pin);
 
-		try {
-			const result = user.save();
-
-			if (result.insertedId) {
-				// Clear the input fields
-				$("#register-form input").val("");
-
-				// Show Login page
-				toggleTabs($("#login-form"), $("#register-form"));
-				toggleButtonState($("#login-tab"), $("#register-tab"));
-
-				return notify.success("Successfully Registered!");
-			}
-		} catch (error) {
-			if (error instanceof Error) {
-				return notify.error(error.message);
-			}
-
-			return notify.error("An Unknown Error Occurred!");
+		if (!hashedPIN) {
+			throw new Error("Something Went Wrong!");
 		}
-	}
 
-	return notify.error("Something Went Wrong!");
+		const user = new User(name, mobile, hashedPIN);
+		const result = user.save();
+
+		if (result.insertedId) {
+			// Clear the input fields
+			$("#register-form input").val("");
+
+			// Show Login page
+			toggleTabs($("#login-form"), $("#register-form"));
+			toggleButtonState($("#login-tab"), $("#register-tab"));
+
+			return notify.success("Successfully Registered!");
+		} else {
+			throw new Error("Something Went Wrong!");
+		}
+	} catch (error) {
+		setTimeout(() => {
+			if (error instanceof Error) {
+				notify.error(error.message);
+			} else {
+				notify.error("An Unknown Error Occurred!");
+			}
+		}, 500);
+	} finally {
+		setTimeout(() => setIsLoading(false), 500);
+	}
 };

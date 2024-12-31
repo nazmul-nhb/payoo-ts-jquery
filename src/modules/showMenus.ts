@@ -4,6 +4,10 @@ import { showHistory } from "./showHistory";
 import { setActiveSection } from "./setActiveSection";
 import { updateNotFoundState } from "./handleNotFound";
 
+/**
+ * Show menus on main screen.
+ * @param mobile User's mobile number as string.
+ */
 export const showMenus = (mobile: string): void => {
 	// Load transaction history
 	showHistory(mobile);

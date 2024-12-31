@@ -1,3 +1,8 @@
+/**
+ * Toggle tabs states: hide/show.
+ * @param tabToShow The tab to show.
+ * @param tabToHide The tab to hide.
+ */
 export const toggleTabs = (
 	tabToShow: JQuery<HTMLElement>,
 	tabToHide: JQuery<HTMLElement>
@@ -10,6 +15,11 @@ export const toggleTabs = (
 	}
 };
 
+/**
+ * Toggle Button colors and other states.
+ * @param activeButton Current active button.
+ * @param inactiveButton Current inactive button.
+ */
 export const toggleButtonState = (
 	activeButton: JQuery<HTMLElement>,
 	inactiveButton: JQuery<HTMLElement>

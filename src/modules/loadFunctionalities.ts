@@ -8,6 +8,10 @@ import { showLoginScreen, showMainScreen } from "./toggleScreens";
 import { showMenus } from "./showMenus";
 import { showBalance } from "./showBalance";
 
+/**
+ * Load all the user related functionalities.
+ * @param user Current logged in user.
+ */
 export const loadUserFunctionalities = (user: User): void => {
 	showMainScreen();
 	showMenus(user.mobile);
